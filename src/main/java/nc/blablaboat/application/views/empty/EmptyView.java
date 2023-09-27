@@ -1,4 +1,4 @@
-package com.example.application.views.empty;
+package nc.blablaboat.application.views.empty;
 
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -15,14 +15,14 @@ public class EmptyView extends VerticalLayout {
     public EmptyView() {
         setSpacing(false);
 
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
+        Image img = new Image("images/BlaBlaBoat.png", "blablaboat logo");
         img.setWidth("200px");
         add(img);
 
-        H2 header = new H2("This place intentionally left empty");
+        H2 header = new H2("Let's do it");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
+        add(new Paragraph("Yoyaa !! 🤗"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
