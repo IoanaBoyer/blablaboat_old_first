@@ -42,11 +42,18 @@
         </dependencies>
     </dependencyManagement>
 
+
     <dependencies>
+        <!-- Driver pour la BDD Sqlite3 -->
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <!-- Replace artifactId with vaadin-core to use only free components -->
-            <artifactId>vaadin</artifactId>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.43.0.0</version>
+        </dependency>
+        <dependency>
+        <groupId>com.vaadin</groupId>
+        <!-- Replace artifactId with vaadin-core to use only free components -->
+        <artifactId>vaadin</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>

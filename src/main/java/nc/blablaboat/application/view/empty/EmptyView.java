@@ -1,4 +1,4 @@
-package nc.blablaboat.application.views.empty;
+package nc.blablaboat.application.view.empty;
 
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
