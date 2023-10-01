@@ -22,8 +22,8 @@ public class PersonService {
         }
     }
 
-    public Person findPersonById(int i) {
-        return null;
+    public Person findPersonById(int id) throws SQLException {
+        return personDAO.findById(id);
     }
 
     public void updatePerson(Person retrievedPerson) {

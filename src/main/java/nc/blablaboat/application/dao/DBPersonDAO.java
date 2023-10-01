@@ -1,10 +1,10 @@
 package nc.blablaboat.application.dao;
 
+import nc.blablaboat.application.dao.connection.ConnectionHolder;
 import nc.blablaboat.application.model.Person;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +14,8 @@ public class DBPersonDAO implements PersonDAO {
     private Connection connection;
 
     public DBPersonDAO() {
-        try {
-            // Établir la connexion à la base de données SQLite
-            connection = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Établir la connexion à la base de données SQLite
+        this.connection = ConnectionHolder.INSTANCE.getConnection();
     }
 
     @Override

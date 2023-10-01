@@ -5,20 +5,28 @@ public class Person {
     private int id;
     private String name;
     private int age;
-    public void setName(String string) {
+    
+    public void setName(String name) {
+        this.name = name;
     }
     public String getName() {
-        return null;
+        return name;
     }
     public int getAge() {
-        return 0;
+        return age;
     }
     public int getId() {
-        return 0;
+        return id;
     }
-    public void setId(int int1) {
+    public void setId(int id) {
+        this.id = id;
     }
-    public void setAge(int int1) {
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String toString() {
+        return "{id: "+ this.id +", name: "+ this.name +", age: "+ this.age +"}";
     }
 
     // Constructeur, getters, setters, etc.
