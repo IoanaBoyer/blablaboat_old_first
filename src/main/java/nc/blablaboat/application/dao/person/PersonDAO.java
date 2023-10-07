@@ -1,4 +1,4 @@
-package nc.blablaboat.application.dao;
+package nc.blablaboat.application.dao.person;
 
 import nc.blablaboat.application.dao.connection.ConnectionHolder;
 import nc.blablaboat.application.model.Person;
@@ -10,10 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 // Implémentation du DAO pour SQLite
-public class DBPersonDAO implements PersonDAO {
+public class PersonDAO implements PersonInterface {
     private Connection connection;
 
-    public DBPersonDAO() {
+    public PersonDAO() {
         // Établir la connexion à la base de données SQLite
         this.connection = ConnectionHolder.INSTANCE.getConnection();
     }

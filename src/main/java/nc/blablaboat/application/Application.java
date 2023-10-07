@@ -3,12 +3,10 @@ package nc.blablaboat.application;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
-import nc.blablaboat.application.dao.connection.ConnectionHolder;
 import nc.blablaboat.application.model.Person;
 import nc.blablaboat.application.service.PersonService;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

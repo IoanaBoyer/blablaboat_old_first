@@ -4,6 +4,7 @@ BlaBlaBoat est une application de "cobaturage".
 # Outils utilisé
 - Git
 - GitHub
+- gestionnaire de package Maven
 
 # Techno utilisé
 - Java
