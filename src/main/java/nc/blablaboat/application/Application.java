@@ -40,11 +40,6 @@ public class Application implements AppShellConfigurator {
         personService.createPerson(person1);
  
         // personService.createPerson(person2);
-        try {
-            System.out.println("Retrieved Person: " + personService.findPersonById(17).toString());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         // // Récupérer une personne par son ID
         // Person retrievedPerson = personService.findPersonById(1);
