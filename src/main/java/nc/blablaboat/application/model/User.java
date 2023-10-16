@@ -3,41 +3,41 @@ package nc.blablaboat.application.model;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Définition de la classe Person
+ * Définition de la classe User
  */
-public class Person {
+public class User {
 
     /**
-     * Générateur de l'identifiant
+     * Nom de l'utilisateur
      */
     public static AtomicInteger genId = new AtomicInteger();
 
     /**
-     * L'identifiant de la personne
+     * L'identifiant de la Userne
      */
     private int id;
 
     /**
-     * Nom de la personne
+     * Nom de la Userne
      */
     private String lastname;
 
     /**
-     * Prénom de la personne
+     * Prénom de la Userne
      */
     private String firstname;
 
     /**
-     * L'âge de la personne
+     * L'âge de la Userne
      */
     private int age;
 
     /**
-     * Mot de passe de la personne
+     * Mot de passe de la Userne
      */
     private String password;
 
-    public Person(String lastname, String firstname, int age, String password) {
+    public User(String lastname, String firstname, int age, String password) {
         this.id = genId.getAndIncrement();
         this.lastname = lastname;
         this.firstname = firstname;
@@ -46,7 +46,7 @@ public class Person {
     }
 
     /**
-     * Récupère l'identifiant de la personne
+     * Récupère l'identifiant de la Userne
      * @return id
      */
     public int getId() {
@@ -54,7 +54,7 @@ public class Person {
     }
 
     /**
-     * Récupère le nom de la personne
+     * Récupère le nom de la Userne
      * @return lastname
      */
     public String getLastname() {
@@ -62,15 +62,15 @@ public class Person {
     }
 
     /**
-     * Modifie le nom de la personne
-     * @param lastname le nouveau nom de la personne
+     * Modifie le nom de la Userne
+     * @param lastname le nouveau nom de la Userne
      */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
     /**
-     * Récupère le prénom de la personne
+     * Récupère le prénom de la Userne
      * @return firstname
      */
     public String getFirstname() {
@@ -78,15 +78,15 @@ public class Person {
     }
 
     /**
-     * Modifie le prénom de la personne
-     * @param firstname le nouveau prénom de la personne
+     * Modifie le prénom de la Userne
+     * @param firstname le nouveau prénom de la Userne
      */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
     /**
-     * Récupère l'âge de la personne
+     * Récupère l'âge de la Userne
      * @return  age
      */
     public int getAge() {
@@ -94,15 +94,15 @@ public class Person {
     }
 
     /**
-     * Modifie l'âge de la personne
-     * @param age le nouvel age de la personne
+     * Modifie l'âge de la Userne
+     * @param age le nouvel age de la Userne
      */
     public void setAge(int age) {
         this.age = age;
     }
 
     /**
-     * Récupère le mot de passe de la personne
+     * Récupère le mot de passe de la Userne
      * @return password
      */
     public String getPassword() {
@@ -110,7 +110,7 @@ public class Person {
     }
 
     /**
-     * Modifie le mot de passe de la personne
+     * Modifie le mot de passe de la Userne
      * @param password le nouveau mot de passe
      */
     public void setPassword(String password) {
@@ -118,12 +118,12 @@ public class Person {
     }
 
     /**
-     * Affiche les informations de la personne
-     * @return la description de la personne
+     * Affiche les informations de la Userne
+     * @return la description de la Userne
      */
     @Override
     public String toString() {
-        return "Person{" +
+        return "User{" +
                 "id=" + id +
                 ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
