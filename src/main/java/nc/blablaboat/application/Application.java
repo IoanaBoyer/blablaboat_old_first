@@ -3,8 +3,8 @@ package nc.blablaboat.application;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
-import nc.blablaboat.application.model.Person;
-import nc.blablaboat.application.service.PersonService;
+import nc.blablaboat.application.model.User;
+import nc.blablaboat.application.service.UserService;
 
 import java.sql.SQLException;
 
@@ -26,37 +26,37 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
 
         // ajout: IB
-        PersonService personService = new PersonService();
+        UserService UserService = new UserService();
 
         // Exemple d'utilisation du service
-        Person person1 = new Person();
-        person1.setName("Alice");
-        person1.setAge(30);
+        User User1 = new User();
+        User1.setLastname("Alice");
+        User1.setAge(30);
 
-        // Person person2 = new Person();
-        // person2.setName("Bob");
-        // person2.setAge(25);
+        // User User2 = new User();
+        // User2.setName("Bob");
+        // User2.setAge(25);
 
-        personService.createPerson(person1);
+        UserService.createUser(User1);
  
-        // personService.createPerson(person2);
+        // UserService.createUser(User2);
 
-        // // Récupérer une personne par son ID
-        // Person retrievedPerson = personService.findPersonById(1);
-        // System.out.println("Retrieved Person: " + retrievedPerson.getName());
+        // // Récupérer une Userne par son ID
+        // User retrievedUser = UserService.findUserById(1);
+        // System.out.println("Retrieved User: " + retrievedUser.getName());
 
-        // // Mettre à jour une personne
-        // retrievedPerson.setAge(31);
-        // personService.updatePerson(retrievedPerson);
+        // // Mettre à jour une Userne
+        // retrievedUser.setAge(31);
+        // UserService.updateUser(retrievedUser);
 
-        // // Récupérer toutes les personnes
-        // List<Person> people = personService.getAllPeople();
-        // for (Person person : people) {
-        //     System.out.println("Person: " + person.getName() + ", Age: " + person.getAge());
+        // // Récupérer toutes les Usernes
+        // List<User> people = UserService.getAllPeople();
+        // for (User User : people) {
+        //     System.out.println("User: " + User.getName() + ", Age: " + User.getAge());
         // }
 
-        // // Supprimer une personne
-        // personService.deletePerson(2);
+        // // Supprimer une Userne
+        // UserService.deleteUser(2);
     }
 
 }
