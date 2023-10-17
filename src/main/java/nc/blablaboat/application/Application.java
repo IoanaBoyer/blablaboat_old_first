@@ -33,11 +33,17 @@ public class Application implements AppShellConfigurator {
         person1.setName("Alice");
         person1.setAge(30);
 
+
         // Person person2 = new Person();
         // person2.setName("Bob");
         // person2.setAge(25);
 
         personService.createPerson(person1);
+
+
+
+        Trajet TableTrajet = new TrajetService()
+        personService.consulterTrajet(TableTrajet())
  
         // personService.createPerson(person2);
 
