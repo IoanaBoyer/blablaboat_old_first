@@ -33,18 +33,19 @@ public class Application implements AppShellConfigurator {
         person1.setName("Alice");
         person1.setAge(30);
 
+
         // Person person2 = new Person();
         // person2.setName("Bob");
         // person2.setAge(25);
 
         personService.createPerson(person1);
+
+
+
+        Trajet TableTrajet = new TrajetService()
+        personService.consulterTrajet(TableTrajet())
  
         // personService.createPerson(person2);
-        try {
-            System.out.println("Retrieved Person: " + personService.findPersonById(17).toString());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         // // Récupérer une personne par son ID
         // Person retrievedPerson = personService.findPersonById(1);
