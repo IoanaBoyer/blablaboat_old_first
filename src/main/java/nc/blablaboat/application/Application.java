@@ -7,6 +7,7 @@ import nc.blablaboat.application.model.User;
 import nc.blablaboat.application.service.UserService;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,27 +26,23 @@ public class Application implements AppShellConfigurator {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
-        // ajout: IB
-        UserService UserService = new UserService();
+        UserService userService = new UserService();
 
         // Exemple d'utilisation du service
-        User User1 = new User();
-        User1.setLastname("Alice");
-        User1.setAge(30);
+        User user1 = new User(null, "AliceM","Alice", "MERVEILLE", 50, "zebi", false);
+        user1.setLastname("Alice");
+        user1.setAge(30);
+
+        userService.insert(user1);
+
+        User user1dao = userService.getById(user1.getId());
+        System.out.println(user1dao);
 
 
-        // Person person2 = new Person();
-        // person2.setName("Bob");
-        // person2.setAge(25);
-
-        personService.createPerson(person1);
-
-
-
-        Trajet TableTrajet = new TrajetService()
-        personService.consulterTrajet(TableTrajet())
+        // Trajet TableTrajet = new TrajetService()
+        // personService.consulterTrajet(TableTrajet())
  
-        // UserService.createUser(User2);
+        // UserService.insert(User2);
 
         // // Récupérer une Userne par son ID
         // User retrievedUser = UserService.findUserById(1);
@@ -53,7 +50,7 @@ public class Application implements AppShellConfigurator {
 
         // // Mettre à jour une Userne
         // retrievedUser.setAge(31);
-        // UserService.updateUser(retrievedUser);
+        // UserService.update(retrievedUser);
 
         // // Récupérer toutes les Usernes
         // List<User> people = UserService.getAllPeople();
@@ -62,7 +59,7 @@ public class Application implements AppShellConfigurator {
         // }
 
         // // Supprimer une Userne
-        // UserService.deleteUser(2);
+        // UserService.delete(2);
     }
 
 }

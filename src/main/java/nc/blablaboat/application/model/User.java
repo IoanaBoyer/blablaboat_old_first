@@ -1,14 +1,17 @@
 package nc.blablaboat.application.model;
 
+import java.util.Objects;
+import java.util.UUID;
+
 /**
  * Définition de la classe utilisateur
  */
 public class User {
 
     /**
-     * L'identifiant de l'utilisateur (défini lorsque l'utilisateur est ajouté dans la BDD)
+     * L'identifiant de l'utilisateur
      */
-    private int id;
+    private UUID id;
 
     /**
      * Le pseudo de l'utilisateur (unique)
@@ -36,6 +39,11 @@ public class User {
     private String password;
 
     /**
+     * Type de l'utilisateur (pas héritage car un utilisateur peut être les 2 en mêmes temps)
+     */
+    private Boolean isDriver;
+
+    /**
      * Constructeur vide
      */
     public User() {
@@ -43,36 +51,37 @@ public class User {
 
     /**
      * Constructeur avec initialisation des attributs
-     * @param id l'identifiant de l'utilisateur
      * @param nickname le pseudo de l'utilisateur
      * @param lastname le nom de l'utilisateur
      * @param firstname le prénom de l'utilisateur
      * @param age l'âge de l'utilisateur
      * @param password le mot de passe de l'utilisateur
+     * @param isDriver type de l'utilisateur
      */
-    public User(int id, String nickname, String lastname, String firstname, int age, String password) {
-        this.id = id;
+    public User(UUID id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
+        setId(id);
         this.nickname = nickname;
         this.lastname = lastname;
         this.firstname = firstname;
         this.age = age;
         this.password = password;
+        this.isDriver = isDriver;
     }
 
     /**
      * Récupère l'identifiant de l'utilisateur
      * @return id
      */
-    public int getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     /**
      * Modifier l'identifiant de l'utilisateur
      * @param id le nouveau identifiant de l'utilisateur
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setId(UUID id) {
+        this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
     }
 
     /**
@@ -153,6 +162,14 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getDriver() {
+        return isDriver;
+    }
+
+    public void setDriver(Boolean driver) {
+        isDriver = driver;
     }
 
     /**

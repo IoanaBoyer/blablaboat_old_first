@@ -19,12 +19,13 @@ public class SchemaInitializer {
         try (var statement = connection.createStatement()) {
             // Création de la table user
             statement.execute("CREATE TABLE IF NOT EXISTS user ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "id VARCHAR(36) PRIMARY KEY,"
                 + "nickname TEXT NOT NULL,"
                 + "lastname TEXT NOT NULL,"
                 + "firstname TEXT NOT NULL,"
                 + "age INTEGER NOT NULL,"
-                + "password TEXT NOT NULL"
+                + "password TEXT NOT NULL,"
+                + "isdriver BOOLEAN NOT NULL"
                 + ")");
 
             // TODO Création de la table reservation
@@ -44,15 +45,6 @@ public class SchemaInitializer {
              *                     + ")");
              */
 
-        }
-    }
-
-    // TODO Ceci est un exemple on peut l'enlever ?
-    private void insertTaux(String nom, double valeur) throws SQLException {
-        try (var statement = connection.prepareStatement("INSERT INTO taux (ID, VALEUR) VALUES (?, ?)")) {
-            statement.setString(1, nom);
-            statement.setDouble(2, valeur);
-            statement.execute();
         }
     }
 }

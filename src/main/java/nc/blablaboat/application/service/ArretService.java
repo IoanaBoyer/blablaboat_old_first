@@ -1,34 +1,37 @@
 package nc.blablaboat.application.service;
 
-import nc.blablaboat.application.dao.arret.ArretDAO;
+import nc.blablaboat.application.contract.ArretInterface;
+import nc.blablaboat.application.dao.ArretDAO;
 import nc.blablaboat.application.model.Arret;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ArretService {
-    private ArretDAO arretDAO;
+public class ArretService implements ArretInterface {
+    private final ArretDAO ARRETDAO = new ArretDAO();
 
-    public ArretService() {
-        this.arretDAO = new ArretDAO();
+    @Override
+    public void insert(Arret arret) {
+        ARRETDAO.insert(arret);
     }
 
-    public Arret getArretById(int id) {
-        return arretDAO.getById(id);
+    @Override
+    public void update(Arret arret) {
+        ARRETDAO.update(arret);
     }
 
-    public ArrayList<Arret> getAllArrets() {
-        return arretDAO.getAll();
+    @Override
+    public void delete(String id) {
+        ARRETDAO.delete(id);
     }
 
-    public void saveArret(Arret arret) {
-        arretDAO.save(arret);
+    @Override
+    public Arret getById(String id) {
+        return ARRETDAO.getById(id);
     }
 
-    public void updateArret(Arret arret) {
-        arretDAO.update(arret);
-    }
-
-    public void deleteArret(Arret arret) {
-        arretDAO.delete(arret);
+    @Override
+    public ArrayList<Arret> getAll() {
+        return null;
     }
 }

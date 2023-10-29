@@ -1,14 +1,17 @@
 package nc.blablaboat.application.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import nc.blablaboat.application.dao.user.UserDAO;
+
+import nc.blablaboat.application.contract.UserInterface;
+import nc.blablaboat.application.dao.UserDAO;
 import nc.blablaboat.application.model.User;
 
 /**
  * Méthodes de la classe User
  */
-public class UserService {
+public class UserService implements UserInterface {
     /**
      * Connexion à la table User
      */
@@ -49,12 +52,8 @@ public class UserService {
      * @param id l'identifiant de l'utilisateur
      * @return l'utilisateur recherché
      */
-    public User consultUserProfil(int id){
-        try {
-            return UserDAO.getUserById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public User consultUserProfil(String id){
+        return getById(id);
     }
 
     /**
@@ -62,47 +61,43 @@ public class UserService {
      * @param searchTerm la recherche
      * @return une liste d'utilisateur correspondant au(x) mot(s) clé(s)
      */
-    public List<User> searchUser(String searchTerm){
-        try {
-            return UserDAO.getUserBySearchTerm(searchTerm);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public ArrayList<User> searchUser(String searchTerm){
+        return getUserBySearchTerm(searchTerm);
     }
 
     /**
      * Créer un utilisateur dans la table user
      * @param user l'utilisateur à ajouter
      */
-    public void createUser(User user) {
-        try {
-            UserDAO.insert(user);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void insert(User user) {
+        UserDAO.insert(user);
     }
-
     /**
      * Mettre à jour un utilisateur dans la table user
      * @param user l'utilisateur à mettre à jour
      */
-    public void updateUser(User user) {
-        try {
+    @Override
+    public void update(User user) {
             UserDAO.update(user);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
      * Supprimer un utilisateur dans la table user
      * @param id l'identifiant de l'utilisateur à supprimer
      */
-    public void deleteUser(int id) {
-        try {
-            UserDAO.delete(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void delete(String id) {
+        UserDAO.delete(id);
+    }
+
+    @Override
+    public User getById(String id){
+        return UserDAO.getById(id);
+    }
+
+    @Override
+    public ArrayList<User> getUserBySearchTerm(String searchTerm) {
+        return null;
     }
 }
