@@ -18,11 +18,12 @@ import java.util.UUID;
 public class ReservationDAO implements ReservationInterface {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
+    //TODO: private final String tableName = "reservation";
 
     // Méthode pour insérer une réservation dans la base de données
     @Override
     public void insert(Reservation reservation) {
-        String query = "INSERT INTO reservations (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, conducteur_id) " +
+        String query = "INSERT INTO reservation (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, conducteur_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getId());
@@ -42,7 +43,7 @@ public class ReservationDAO implements ReservationInterface {
 
     @Override
     public void update(Reservation reservation) {
-        String query = "UPDATE reservations SET depart_id = ?, arrivee_id = ?, date_heure_depart = ?, date_heure_arrivee = ?, nb_passager = ?, " +
+        String query = "UPDATE reservation SET depart_id = ?, arrivee_id = ?, date_heure_depart = ?, date_heure_arrivee = ?, nb_passager = ?, " +
                 "tarif_unitaire = ?, specifications = ?, conducteur_id = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getDepart().getId());
@@ -62,7 +63,7 @@ public class ReservationDAO implements ReservationInterface {
 
     @Override
     public void delete(String id) { // Modifiez le paramètre pour prendre en charge UUID
-        String query = "DELETE FROM reservations WHERE id = ?";
+        String query = "DELETE FROM reservation WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
@@ -73,7 +74,7 @@ public class ReservationDAO implements ReservationInterface {
 
     @Override
     public Reservation getById(String id) { // Modifiez le paramètre pour prendre en charge UUID
-        String query = "SELECT * FROM reservations WHERE id = ?";
+        String query = "SELECT * FROM reservation WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -91,18 +92,59 @@ public class ReservationDAO implements ReservationInterface {
 
     @Override
     public ArrayList<Reservation> getAll() {
-        ArrayList<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservations";
+        ArrayList<Reservation> reservation = new ArrayList<>();
+        String query = "SELECT * FROM reservation";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                reservations.add(createFromResultSet(resultSet));
+                reservation.add(createFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return reservations;
+        return reservation;
     }
+
+    @Override
+    public ArrayList<Reservation> getBySearchTerm(String searchTerm) {
+        ArrayList<Reservation> matchingReservations = new ArrayList<>();
+
+        String query = "SELECT * FROM reservation WHERE id LIKE ? OR depart LIKE ? OR arrivee LIKE ?";
+
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + searchTerm + "%");
+            preparedStatement.setString(2, "%" + searchTerm + "%");
+            preparedStatement.setString(3, "%" + searchTerm + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String arretId = resultSet.getString("id");
+                    Double arretLongitude = resultSet.getDouble("longitude");
+                    Double arretLatitude = resultSet.getDouble("latitude");
+
+                    UUID id = UUID.fromString(resultSet.getString("id"));
+                    Arret depart = new Arret(arretId, arretLongitude, arretLatitude);
+                    Arret arrivee = new Arret(/* retrieve arrival information from ResultSet */);
+                    Date dateHeureDepart = /* retrieve dateHeureDepart */;
+                    Date dateHeureArrivee = /* retrieve dateHeureArrivee */;
+                    Integer nbPassager = resultSet.getInt("nbPassager");
+                    Integer tarifUnitaire = resultSet.getInt("tarifUnitaire");
+                    String specifications = resultSet.getString("specifications");
+                    // Retrieve the list of passengers and driver and populate them accordingly
+
+                    Reservation reservation = new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee,
+                            nbPassager, tarifUnitaire, specifications, listePassagers, conducteur);
+                    matchingReservations.add(reservation);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return matchingReservations;
+    }
+
 
     private Reservation createFromResultSet(ResultSet resultSet) {
         try {

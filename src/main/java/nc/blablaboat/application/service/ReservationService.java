@@ -7,6 +7,7 @@ import nc.blablaboat.application.contract.ReservationInterface;
 import nc.blablaboat.application.dao.ArretDAO;
 import nc.blablaboat.application.dao.ReservationDAO;
 import nc.blablaboat.application.model.Reservation;
+import nc.blablaboat.application.model.User;
 
 public class ReservationService implements ReservationInterface {
 
@@ -39,5 +40,10 @@ public class ReservationService implements ReservationInterface {
     @Override
     public ArrayList<Reservation> getAll() {
         return RESERVATIONDAO.getAll();
+    }
+
+    @Override
+    public ArrayList<Reservation> getBySearchTerm(String searchTerm) {
+        return RESERVATIONDAO.getBySearchTerm(searchTerm);
     }
 }

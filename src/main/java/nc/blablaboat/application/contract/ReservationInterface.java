@@ -1,6 +1,7 @@
 package nc.blablaboat.application.contract;
 
 import nc.blablaboat.application.model.Reservation;
+import nc.blablaboat.application.model.User;
 
 import java.util.ArrayList;
 
@@ -16,4 +17,6 @@ public interface ReservationInterface {
 
     // Méthode pour récupérer tous les arrêts
     ArrayList<Reservation> getAll();
+
+    ArrayList<Reservation> getBySearchTerm(String searchTerm);
 }

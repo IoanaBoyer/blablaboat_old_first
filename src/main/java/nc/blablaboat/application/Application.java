@@ -29,7 +29,7 @@ public class Application implements AppShellConfigurator {
         UserService userService = new UserService();
 
         // Exemple d'utilisation du service
-        User user1 = new User(null, "AliceM","Alice", "MERVEILLE", 50, "zebi", false);
+        User user1 = new User("AliceM","Alice", "MERVEILLE", 50, "zebi", false);
         user1.setLastname("Alice");
         user1.setAge(30);
 

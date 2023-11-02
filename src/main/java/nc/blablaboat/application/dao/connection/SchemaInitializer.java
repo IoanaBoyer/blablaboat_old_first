@@ -29,12 +29,20 @@ public class SchemaInitializer {
                 + ")");
 
             // TODO Création de la table reservation
-            /**
-             * statement.execute("CREATE TABLE IF NOT EXISTS product ("
-             *                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-             *                     + ...
-             *                     + ")");
-             */
+//            create table main.reservations
+//                    (
+//                            id                 integer,
+//                            depart_id          integer,
+//                            arrivee_id         integer,
+//                            date_heure_depart  integer,
+//                            date_heure_arrivee integer,
+//                            nb_passager        integer,
+//                            tarif_unitaire     integer,
+//                            specifications     integer,
+//                            conducteur_id      integer
+//                    );
+
+
 
 
             // TODO Création de la table demande

@@ -1,5 +1,7 @@
 package nc.blablaboat.application.model;
 
+import nc.blablaboat.application.contract.UserInterface;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -66,6 +68,12 @@ public class User {
         this.age = age;
         this.password = password;
         this.isDriver = isDriver;
+    }
+    public User(String id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
+        this(UUID.fromString(id), nickname, lastname, firstname, age, password, isDriver);
+    }
+    public User(String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
+        this(UUID.randomUUID(), nickname, lastname, firstname, age, password, isDriver);
     }
 
     /**

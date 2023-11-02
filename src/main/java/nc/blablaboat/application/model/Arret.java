@@ -11,9 +11,20 @@ public class Arret {
     private Double latitude;
 
     public Arret(UUID id, Double longitude, Double latitude) {
+        setId(id);
         this.longitude = longitude;
         this.latitude = latitude;
     }
+
+    public Arret(String id, Double longitude, Double latitude) {
+        this(UUID.fromString(id), longitude, latitude);
+    }
+
+    public Arret(Double longitude, Double latitude) {
+        this(UUID.randomUUID(), longitude, latitude);
+    }
+
+
 
     public String getId() {
         return id.toString();

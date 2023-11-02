@@ -37,5 +37,5 @@ public interface UserInterface {
      * @param searchTerm le(s) mot(s) clé(s) de la recherche
      * @return la liste des utilisateurs correspondant à la recherche
      */
-    ArrayList<User> getUserBySearchTerm(String searchTerm);
+    ArrayList<User> getBySearchTerm(String searchTerm);
 }

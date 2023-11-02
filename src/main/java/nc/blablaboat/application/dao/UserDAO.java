@@ -99,7 +99,7 @@ public class UserDAO implements UserInterface {
     }
 
     @Override
-    public ArrayList<User> getUserBySearchTerm(String searchTerm) {
+    public ArrayList<User> getBySearchTerm(String searchTerm) {
         ArrayList<User> matchingUsers = new ArrayList<>();
 
         String query = "SELECT * FROM user WHERE nickname LIKE ? OR lastname LIKE ? OR firstname LIKE ?";

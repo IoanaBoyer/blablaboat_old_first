@@ -62,7 +62,7 @@ public class UserService implements UserInterface {
      * @return une liste d'utilisateur correspondant au(x) mot(s) clé(s)
      */
     public ArrayList<User> searchUser(String searchTerm){
-        return getUserBySearchTerm(searchTerm);
+        return getBySearchTerm(searchTerm);
     }
 
     /**
@@ -97,7 +97,7 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public ArrayList<User> getUserBySearchTerm(String searchTerm) {
-        return null;
+    public ArrayList<User> getBySearchTerm(String searchTerm) {
+        return UserDAO.getBySearchTerm(searchTerm);
     }
 }

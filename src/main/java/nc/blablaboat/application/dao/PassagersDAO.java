@@ -14,13 +14,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class ReservationPassagersDAO {
+public class PassagersDAO {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
 
     // Méthode pour insérer une réservation dans la base de données
     public void insert(Reservation reservation) {
-        String query = "INSERT INTO reservations (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, conducteur_id) " +
+        String query = "INSERT INTO reservation (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, conducteur_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getId());
@@ -39,7 +39,7 @@ public class ReservationPassagersDAO {
     }
 
     public void update(Reservation reservation) {
-        String query = "UPDATE reservations SET depart_id = ?, arrivee_id = ?, date_heure_depart = ?, date_heure_arrivee = ?, nb_passager = ?, " +
+        String query = "UPDATE reservation SET depart_id = ?, arrivee_id = ?, date_heure_depart = ?, date_heure_arrivee = ?, nb_passager = ?, " +
                 "tarif_unitaire = ?, specifications = ?, conducteur_id = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getDepart().getId());
@@ -58,7 +58,7 @@ public class ReservationPassagersDAO {
     }
 
     public void delete(String id) { // Modifiez le paramètre pour prendre en charge UUID
-        String query = "DELETE FROM reservations WHERE id = ?";
+        String query = "DELETE FROM reservation WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
@@ -68,7 +68,7 @@ public class ReservationPassagersDAO {
     }
 
     public Reservation getById(String id) { // Modifiez le paramètre pour prendre en charge UUID
-        String query = "SELECT * FROM reservations WHERE id = ?";
+        String query = "SELECT * FROM reservation WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -85,17 +85,17 @@ public class ReservationPassagersDAO {
     }
 
     public List<Reservation> getAll() {
-        List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservations";
+        List<Reservation> reservation = new ArrayList<>();
+        String query = "SELECT * FROM reservation";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                reservations.add(createFromResultSet(resultSet));
+                reservation.add(createFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return reservations;
+        return reservation;
     }
 
     private Reservation createFromResultSet(ResultSet resultSet) {
