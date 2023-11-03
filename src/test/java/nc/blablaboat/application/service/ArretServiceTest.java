@@ -15,9 +15,10 @@ public class ArretServiceTest {
         // Given
         Double longitude = 45.123;
         Double latitude = -30.456;
+        String name = "Ilot signal";
 
         // When
-        Arret arret = new Arret(longitude, latitude);
+        Arret arret = new Arret(name,longitude, latitude);
 
         // Then
         assertNotNull(arret.getId());
@@ -29,9 +30,10 @@ public class ArretServiceTest {
         Double longitude = 45.123;
         Double latitude = -30.456;
         UUID id = UUID.randomUUID();
+        String name = "Ilôt maitre";
 
         // When
-        Arret arret = new Arret(id, longitude, latitude);
+        Arret arret = new Arret(id, name, longitude, latitude);
 
         // Then
         assertEquals(id.toString(), arret.getId());
@@ -42,9 +44,10 @@ public class ArretServiceTest {
         // Given
         Double longitude = 45.123;
         Double latitude = -30.456;
+        String name = "Ilôt maitre";
 
         // When
-        Arret arret = new Arret(longitude, latitude);
+        Arret arret = new Arret(name, longitude, latitude);
 
         // Then
         assertEquals(longitude, arret.getLongitude());
@@ -56,7 +59,8 @@ public class ArretServiceTest {
         // Given
         Double longitude = 45.123;
         Double latitude = -30.456;
-        Arret arret = new Arret(longitude, latitude);
+        String name = "Ilôt maitre";
+        Arret arret = new Arret(name, longitude, latitude);
 
         // When
         Double newLongitude = 50.789;
@@ -76,11 +80,12 @@ public class ArretServiceTest {
         String id = UUID.randomUUID().toString();
         Double longitude = 12.345;
         Double latitude = 67.890;
+        String name = "Ilôt maitre";
 
         // When
-        Arret arret1 = new Arret(UUID.fromString(id), longitude, latitude);
-        Arret arret2 = new Arret(id, longitude, latitude);
-        Arret arret3 = new Arret(longitude, latitude);
+        Arret arret1 = new Arret(UUID.fromString(id), name, longitude, latitude);
+        Arret arret2 = new Arret(id, name, longitude, latitude);
+        Arret arret3 = new Arret(name, longitude, latitude);
 
         // Then
         assertNotNull(arret1.getId());

@@ -28,6 +28,14 @@ public class SchemaInitializer {
                 + "isdriver BOOLEAN NOT NULL"
                 + ")");
 
+            // Création de la table arret
+            statement.execute("CREATE TABLE IF NOT EXISTS arret ("
+                    + "id VARCHAR(36) PRIMARY KEY,"
+                    + "name TEXT NOT NULL,"
+                    + "longitude DOUBLE NOT NULL,"
+                    + "latitude DOUBLE NOT NULL"
+                    + ")");
+
             // TODO Création de la table reservation
 //            create table main.reservations
 //                    (
@@ -42,17 +50,6 @@ public class SchemaInitializer {
 //                            conducteur_id      integer
 //                    );
 
-
-
-
-            // TODO Création de la table demande
-            /**
-             * statement.execute("CREATE TABLE IF NOT EXISTS product ("
-             *                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-             *                     + ...
-             *                     + ")");
-             */
-
-        }
+            // TODO Création de la table passager
     }
 }

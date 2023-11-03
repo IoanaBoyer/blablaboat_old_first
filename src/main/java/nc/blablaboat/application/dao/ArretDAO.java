@@ -16,7 +16,7 @@ public class ArretDAO implements ArretInterface {
     // Méthode pour insérer un arrêt dans la base de données
     @Override
     public void insert(Arret arret) {
-        String query = "INSERT INTO arrets (id, longitude, latitude) VALUES (?, ?, ?)";
+        String query = "INSERT INTO arret (id, longitude, latitude) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, arret.getId());
             preparedStatement.setDouble(2, arret.getLongitude());
@@ -31,7 +31,7 @@ public class ArretDAO implements ArretInterface {
     // Méthode pour mettre à jour un arrêt dans la base de données
     @Override
     public void update(Arret arret) {
-        String query = "UPDATE arrets SET longitude = ?, latitude = ? WHERE id = ?";
+        String query = "UPDATE arret SET longitude = ?, latitude = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setDouble(1, arret.getLongitude());
             preparedStatement.setDouble(2, arret.getLatitude());
@@ -46,7 +46,7 @@ public class ArretDAO implements ArretInterface {
     // Méthode pour supprimer un arrêt de la base de données
     @Override
     public void delete(String id) {
-        String query = "DELETE FROM arrets WHERE id = ?";
+        String query = "DELETE FROM arret WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
@@ -59,7 +59,7 @@ public class ArretDAO implements ArretInterface {
     // Méthode pour récupérer un arrêt par son ID
     @Override
     public Arret getById(String id) {
-        String query = "SELECT * FROM arrets WHERE id = ?";
+        String query = "SELECT * FROM arret WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -78,7 +78,7 @@ public class ArretDAO implements ArretInterface {
     @Override
     public ArrayList<Arret> getAll() {
         ArrayList<Arret> arrets = new ArrayList<>();
-        String query = "SELECT * FROM arrets";
+        String query = "SELECT * FROM arret";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -95,9 +95,10 @@ public class ArretDAO implements ArretInterface {
     private Arret createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id"));
+            String name = "Ilot Golfiled";
             double longitude = resultSet.getDouble("longitude");
             double latitude = resultSet.getDouble("latitude");
-            return new Arret(id, longitude, latitude);
+            return new Arret(id, name, longitude, latitude);
         } catch (SQLException e) {
             // Gérer l'exception ou la propager
             throw new RuntimeException(e);
