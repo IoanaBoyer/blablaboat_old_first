@@ -11,7 +11,7 @@ public class Reservation {
     private Arret arrivee;
     private Date dateHeureDepart;
     private Date dateHeureArrivee;
-    private Integer nbPassager;
+    private Integer nbPassager; //TODO: deplacer en tant que méthode
     private Integer tarifUnitaire;
     private String specifications;
     private ArrayList<User> listePassagers;

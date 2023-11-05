@@ -5,6 +5,8 @@ import nc.blablaboat.application.dao.connection.ConnectionHolder;
 import nc.blablaboat.application.model.Arret;
 import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
+import nc.blablaboat.application.service.ArretService;
+import nc.blablaboat.application.service.UserService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +21,9 @@ public class ReservationDAO implements ReservationInterface {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     //TODO: private final String tableName = "reservation";
+    private final ArretService arretService = new ArretService();
+    private final UserService userService = new UserService();
+    private final PassagersDAO passagersDAO = new PassagersDAO();
 
     // Méthode pour insérer une réservation dans la base de données
     @Override
@@ -118,22 +123,7 @@ public class ReservationDAO implements ReservationInterface {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    String arretId = resultSet.getString("id");
-                    Double arretLongitude = resultSet.getDouble("longitude");
-                    Double arretLatitude = resultSet.getDouble("latitude");
-
-                    UUID id = UUID.fromString(resultSet.getString("id"));
-                    Arret depart = new Arret(arretId, arretLongitude, arretLatitude);
-                    Arret arrivee = new Arret(/* retrieve arrival information from ResultSet */);
-                    Date dateHeureDepart = /* retrieve dateHeureDepart */;
-                    Date dateHeureArrivee = /* retrieve dateHeureArrivee */;
-                    Integer nbPassager = resultSet.getInt("nbPassager");
-                    Integer tarifUnitaire = resultSet.getInt("tarifUnitaire");
-                    String specifications = resultSet.getString("specifications");
-                    // Retrieve the list of passengers and driver and populate them accordingly
-
-                    Reservation reservation = new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee,
-                            nbPassager, tarifUnitaire, specifications, listePassagers, conducteur);
+                    Reservation reservation = createFromResultSet(resultSet);
                     matchingReservations.add(reservation);
                 }
             } catch (SQLException e) {
@@ -149,17 +139,16 @@ public class ReservationDAO implements ReservationInterface {
     private Reservation createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id")); // Récupérez UUID
-            ArretDAO arretDAO = new ArretDAO();
-            Arret depart = arretDAO.getById(resultSet.getString("depart_id"));
-            Arret arrivee = arretDAO.getById(resultSet.getString("arrivee_id"));
+            Arret depart = arretService.getById(resultSet.getString("depart_id"));
+            Arret arrivee = arretService.getById(resultSet.getString("arrivee_id"));
             Date dateHeureDepart = resultSet.getTimestamp("date_heure_depart");
             Date dateHeureArrivee = resultSet.getTimestamp("date_heure_arrivee");
             int nbPassager = resultSet.getInt("nb_passager");
             int tarifUnitaire = resultSet.getInt("tarif_unitaire");
             String specifications = resultSet.getString("specifications");
-            UserDAO userDAO = new UserDAO();
-            User conducteur = userDAO.getById(resultSet.getString("conducteur_id"));
-            return new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee, nbPassager, tarifUnitaire, specifications, new ArrayList<>(), conducteur);
+            User conducteur = userService.getById(resultSet.getString("conducteur_id"));
+            ArrayList<User> passagers = passagersDAO.getByIdReservation(id.toString());
+            return new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee, nbPassager, tarifUnitaire, specifications, passagers, conducteur);
         } catch (SQLException e) {
             // Gérer l'exception ou la propager
             throw new RuntimeException(e);

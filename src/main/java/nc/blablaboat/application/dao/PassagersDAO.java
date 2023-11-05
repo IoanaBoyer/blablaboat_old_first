@@ -4,6 +4,7 @@ import nc.blablaboat.application.dao.connection.ConnectionHolder;
 import nc.blablaboat.application.model.Arret;
 import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
+import nc.blablaboat.application.service.UserService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class PassagersDAO {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
+    private final UserService userService = new UserService();
 
     // Méthode pour insérer une réservation dans la base de données
     public void insert(Reservation reservation) {
@@ -67,28 +69,26 @@ public class PassagersDAO {
         }
     }
 
-    public Reservation getById(String id) { // Modifiez le paramètre pour prendre en charge UUID
-        String query = "SELECT * FROM reservation WHERE id = ?";
+    public ArrayList<User> getByIdReservation(String id) {
+        ArrayList<User> passagers = new ArrayList<>();
+        String query = "SELECT * FROM passager WHERE reservation_id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
-            preparedStatement.setString(1, id);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return createFromResultSet(resultSet);
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+             preparedStatement.setString(1, id);
+             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                passagers.add(createFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return passagers;
     }
 
-    public List<Reservation> getAll() {
-        List<Reservation> reservation = new ArrayList<>();
+    public List<User> getAll() {
+        List<User> reservation = new ArrayList<>();
         String query = "SELECT * FROM reservation";
-        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
+             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 reservation.add(createFromResultSet(resultSet));
             }
@@ -97,24 +97,12 @@ public class PassagersDAO {
         }
         return reservation;
     }
-
-    private Reservation createFromResultSet(ResultSet resultSet) {
+    private User createFromResultSet(ResultSet resultSet) {
         try {
-            UUID id = UUID.fromString(resultSet.getString("id")); // Récupérez UUID
-            ArretDAO arretDAO = new ArretDAO();
-            Arret depart = arretDAO.getById(resultSet.getString("depart_id"));
-            Arret arrivee = arretDAO.getById(resultSet.getString("arrivee_id"));
-            Date dateHeureDepart = resultSet.getTimestamp("date_heure_depart");
-            Date dateHeureArrivee = resultSet.getTimestamp("date_heure_arrivee");
-            int nbPassager = resultSet.getInt("nb_passager");
-            int tarifUnitaire = resultSet.getInt("tarif_unitaire");
-            String specifications = resultSet.getString("specifications");
-            UserDAO userDAO = new UserDAO();
-            User conducteur = userDAO.getById(resultSet.getString("conducteur_id"));
-            return new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee, nbPassager, tarifUnitaire, specifications, new ArrayList<>(), conducteur);
-        } catch (SQLException e) {
+            return userService.getById(resultSet.getString("user_id"));
+        } catch (Exception e) {
             // Gérer l'exception ou la propager
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erreur: recupération des passager de la réservation",e);
         }
     }
 }

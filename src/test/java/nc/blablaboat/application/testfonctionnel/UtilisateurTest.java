@@ -54,7 +54,7 @@ public class UtilisateurTest {
         userService.insert(defaultUser);
         userService.getById(defaultUser.getId());
 
-        reservationService.searc()
+        reservationService.getBySearchTerm("2");
     }
 
     // 5.  utilisteur -- rejoindre réservation
