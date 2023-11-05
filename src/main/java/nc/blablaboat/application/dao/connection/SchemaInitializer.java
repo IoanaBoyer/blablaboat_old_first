@@ -16,40 +16,77 @@ public class SchemaInitializer {
     }
 
     private void createSchema() throws SQLException {
-        try (var statement = connection.createStatement()) {
-            // Création de la table user
-            statement.execute("CREATE TABLE IF NOT EXISTS user ("
-                + "id VARCHAR(36) PRIMARY KEY,"
-                + "nickname TEXT NOT NULL,"
-                + "lastname TEXT NOT NULL,"
-                + "firstname TEXT NOT NULL,"
-                + "age INTEGER NOT NULL,"
-                + "password TEXT NOT NULL,"
-                + "isdriver BOOLEAN NOT NULL"
-                + ")");
+        connection.setAutoCommit(false);
+        try {
+            createTableUser();
+            createTableReservation();
+            createTableArret();
+            createTablePassager();
 
-            // Création de la table arret
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
+    private void createTableUser() throws SQLException {
+        try (var statement = connection.createStatement()) {
+            statement.execute("CREATE TABLE IF NOT EXISTS user ("
+                    + "id VARCHAR(36) PRIMARY KEY,"
+                    + "nickname TEXT NOT NULL,"
+                    + "lastname TEXT NOT NULL,"
+                    + "firstname TEXT NOT NULL,"
+                    + "age INTEGER NOT NULL,"
+                    + "password TEXT NOT NULL,"
+                    + "isdriver BOOLEAN NOT NULL"
+                    + ")");
+        }
+    }
+
+    private void createTableReservation() throws SQLException {
+        try (var statement = connection.createStatement()) {
+            statement.execute("CREATE TABLE IF NOT EXISTS reservation ("
+                    + "id VARCHAR(36) PRIMARY KEY,"
+                    + "depart_id VARCHAR(36),"
+                    + "arrivee_id VARCHAR(36),"
+                    + "dateHeureDepart DATETIME,"
+                    + "dateHeureArrivee DATETIME,"
+                    + "nbPassager INTEGER,"
+                    + "tarifUnitaire INTEGER,"
+                    + "specifications TEXT,"
+                    + "passagers_id VARCHAR(36),"
+                    + "conducteur_id VARCHAR(36),"
+                    + "FOREIGN KEY (depart_id) REFERENCES arret (id),"
+                    + "FOREIGN KEY (arrivee_id) REFERENCES arret (id),"
+                    + "FOREIGN KEY (passagers_id) REFERENCES passager (reservation_id),"
+                    + "FOREIGN KEY (conducteur_id) REFERENCES user (id)"
+                    + ")");
+        }
+    }
+
+    private void createTableArret() throws SQLException {
+        try (var statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS arret ("
                     + "id VARCHAR(36) PRIMARY KEY,"
-                    + "name TEXT NOT NULL,"
-                    + "longitude DOUBLE NOT NULL,"
-                    + "latitude DOUBLE NOT NULL"
+                    + "longitude DOUBLE PRECISION NOT NULL,"
+                    + "latitude DOUBLE PRECISION NOT NULL"
                     + ")");
-
-            // TODO Création de la table reservation
-//            create table main.reservations
-//                    (
-//                            id                 integer,
-//                            depart_id          integer,
-//                            arrivee_id         integer,
-//                            date_heure_depart  integer,
-//                            date_heure_arrivee integer,
-//                            nb_passager        integer,
-//                            tarif_unitaire     integer,
-//                            specifications     integer,
-//                            conducteur_id      integer
-//                    );
-
-            // TODO Création de la table passager
+        }
     }
+
+    private void createTablePassager() throws SQLException {
+        try (var statement = connection.createStatement()) {
+            statement.execute("CREATE TABLE IF NOT EXISTS passager ("
+                    + "reservation_id VARCHAR(36) NOT NULL,"
+                    + "user_id VARCHAR(36) NOT NULL,"
+                    + "PRIMARY KEY (reservation_id, user_id),"
+                    + "FOREIGN KEY (reservation_id) REFERENCES reservation (id),"
+                    + ")");
+        }
+                    + "FOREIGN KEY (user_id) REFERENCES user (id)"
+    }
+
 }
