@@ -60,7 +60,7 @@ public class User {
      * @param isDriver type de l'utilisateur
      */
     public User(UUID id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
-        this.id = id;
+        setId(id);
         this.nickname = nickname;
         this.lastname = lastname;
         this.firstname = firstname;

@@ -23,6 +23,10 @@ public class StopDAO implements StopDAOInterface {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     }
 
+    /**
+     * Insérer un arrêt dans la table arrêt
+     * @param stop l'arrêt à insérer
+     */
     @Override
     public void insert(Stop stop) {
         String query = "INSERT INTO stop (id, name, longitude, latitude) VALUES (?, ?, ?, ?)";
@@ -39,6 +43,10 @@ public class StopDAO implements StopDAOInterface {
         }
     }
 
+    /**
+     * Mettre à jour un arrêt dans la table arrêt
+     * @param stop l'arrêt à mettre à jour
+     */
     @Override
     public void update(Stop stop) {
         String query = "UPDATE stop SET name = ?, longitude = ?, latitude = ? WHERE id = ?";
@@ -55,6 +63,10 @@ public class StopDAO implements StopDAOInterface {
         }
     }
 
+    /**
+     * Supprimer un arrêt dans la table arrêt
+     * @param id l'identifiant de l'arrêt à supprimer
+     */
     @Override
     public void delete(String id) {
         String query = "DELETE FROM stop WHERE id = ?";
@@ -68,6 +80,11 @@ public class StopDAO implements StopDAOInterface {
         }
     }
 
+    /**
+     * Récupérer un arrêt dans la table arrêt via son id
+     * @param id l'identifiant de l'arret à récupérer
+     * @return L'arrêt souhaité
+     */
     @Override
     public Stop getById(String id) {
         String query = "SELECT * FROM stop WHERE id = ?";
@@ -85,6 +102,10 @@ public class StopDAO implements StopDAOInterface {
         return null;
     }
 
+    /**
+     * Récupérer la liste complète des arrêts
+     * @return La liste des arrêts
+     */
     @Override
     public ArrayList<Stop> getAll() {
         ArrayList<Stop> portOfCalls = new ArrayList<>();
@@ -100,6 +121,11 @@ public class StopDAO implements StopDAOInterface {
         return portOfCalls;
     }
 
+    /**
+     * Créer un arrêt à partir d'un ResultSet
+     * @param resultSet le ResultSet à utiliser
+     * @return L'arrêt créé
+     */
     private Stop createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id"));
