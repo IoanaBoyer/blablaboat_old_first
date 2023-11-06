@@ -18,15 +18,15 @@ public class SchemaInitializer {
     private void createSchema() throws SQLException {
         try (var statement = connection.createStatement()) {
             // Création de la table user
-            statement.execute("CREATE TABLE IF NOT EXISTS user ("
-                + "id VARCHAR(36) PRIMARY KEY,"
-                + "nickname TEXT NOT NULL,"
-                + "lastname TEXT NOT NULL,"
-                + "firstname TEXT NOT NULL,"
-                + "age INTEGER NOT NULL,"
-                + "password TEXT NOT NULL,"
-                + "isdriver BOOLEAN NOT NULL"
-                + ")");
+            statement.execute("CREATE TABLE IF NOT EXISTS user (" +
+                    "id UUID PRIMARY KEY, " +
+                    "nickname VARCHAR(255) UNIQUE NOT NULL, " +
+                    "lastname VARCHAR(255) NOT NULL, " +
+                    "firstname VARCHAR(255) NOT NULL, " +
+                    "age INT NOT NULL CHECK (age >= 0), " +
+                    "password VARCHAR(255) NOT NULL, " +
+                    "is_driver BOOLEAN NOT NULL" +
+                    ");");
 
             // Création de la table arret
             statement.execute("CREATE TABLE IF NOT EXISTS arret ("
@@ -51,5 +51,6 @@ public class SchemaInitializer {
 //                    );
 
             // TODO Création de la table passager
+        }
     }
 }

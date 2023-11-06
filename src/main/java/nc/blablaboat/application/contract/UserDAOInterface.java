@@ -1,11 +1,12 @@
 package nc.blablaboat.application.contract;
 
 import nc.blablaboat.application.model.User;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public interface UserInterface {
+/**
+ * Interface de la table User
+ */
+public interface UserDAOInterface {
     /**
      * Insérer un utilisateur dans la table user
      * @param user l'utilisateur à insérer
@@ -24,7 +25,6 @@ public interface UserInterface {
      */
     void delete(String id);
 
-
     /**
      * Récupérer un utilisateur dans la table user via son id
      * @param id l'identifiant de l'utilisateur à récupérer
@@ -38,4 +38,10 @@ public interface UserInterface {
      * @return la liste des utilisateurs correspondant à la recherche
      */
     ArrayList<User> getBySearchTerm(String searchTerm);
+
+    /**
+     * Récupérer la liste complète des utilisateurs
+     * @return la liste des utilisateurs
+     */
+    ArrayList<User> getAll();
 }
