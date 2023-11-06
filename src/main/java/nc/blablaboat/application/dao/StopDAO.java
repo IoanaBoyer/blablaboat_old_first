@@ -23,6 +23,10 @@ public class StopDAO implements StopDAOInterface {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     }
 
+    public Connection getCONNECTION() {
+        return CONNECTION;
+    }
+
     /**
      * Insérer un arrêt dans la table arrêt
      * @param stop l'arrêt à insérer
@@ -126,7 +130,7 @@ public class StopDAO implements StopDAOInterface {
      * @param resultSet le ResultSet à utiliser
      * @return L'arrêt créé
      */
-    private Stop createFromResultSet(ResultSet resultSet) {
+    public Stop createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id"));
             String name = resultSet.getString("name");
