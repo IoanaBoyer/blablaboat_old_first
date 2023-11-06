@@ -4,10 +4,9 @@ import nc.blablaboat.application.contract.ArretInterface;
 import nc.blablaboat.application.dao.ArretDAO;
 import nc.blablaboat.application.model.Arret;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ArretService implements ArretInterface {
+public class PortOfCallService implements ArretInterface {
     private final ArretDAO ARRETDAO = new ArretDAO();
 
     @Override

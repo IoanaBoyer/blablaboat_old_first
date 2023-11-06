@@ -4,7 +4,7 @@ import nc.blablaboat.application.model.User;
 import java.util.ArrayList;
 
 /**
- * Interface de la table User
+ * Interface de la table user
  */
 public interface UserDAOInterface {
     /**

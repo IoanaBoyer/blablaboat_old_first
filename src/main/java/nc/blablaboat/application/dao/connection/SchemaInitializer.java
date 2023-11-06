@@ -29,12 +29,12 @@ public class SchemaInitializer {
                     ");");
 
             // Création de la table arret
-            statement.execute("CREATE TABLE IF NOT EXISTS arret ("
-                    + "id VARCHAR(36) PRIMARY KEY,"
-                    + "name TEXT NOT NULL,"
-                    + "longitude DOUBLE NOT NULL,"
-                    + "latitude DOUBLE NOT NULL"
-                    + ")");
+            statement.execute("CREATE TABLE IF NOT EXISTS port_of_call (" +
+                    "id UUID PRIMARY KEY, " +
+                    "name VARCHAR(255) NOT NULL, " +
+                    "longitude DOUBLE PRECISION NOT NULL, " +
+                    "latitude DOUBLE PRECISION NOT NULL" +
+                    ");");
 
             // TODO Création de la table reservation
 //            create table main.reservations

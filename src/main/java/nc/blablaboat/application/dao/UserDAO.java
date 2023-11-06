@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 /**
- * Méthodes de la table User
+ * Méthodes de la table user
  */
 public class UserDAO implements UserDAOInterface {
     /**
@@ -29,7 +29,8 @@ public class UserDAO implements UserDAOInterface {
 
     @Override
     public void insert(User user) {
-        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, user.getId());
@@ -48,7 +49,7 @@ public class UserDAO implements UserDAOInterface {
 
     @Override
     public void update(User user) {
-        String query = "UPDATE user SET nickname=?, lastname=?, firstname=?, age=?, password=?, is_driver=? WHERE id=?";;
+        String query = "UPDATE user SET nickname=?, lastname=?, firstname=?, age=?, password=?, is_driver=? WHERE id=?";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, user.getId());

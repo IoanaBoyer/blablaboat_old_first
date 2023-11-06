@@ -105,8 +105,8 @@ public class User {
     }
 
     /**
-     * Modifier l'identifiant de l'utilisateur
-     * @param id le nouveau identifiant de l'utilisateur
+     * Modifie l'identifiant de l'utilisateur
+     * @param id le nouvel identifiant de l'utilisateur
      */
     public void setId(UUID id) {
         this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
