@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Définition de la classe arrêt
  */
-public class PortOfCall {
+public class Stop {
     /**
      * L'identifiant de l'arrêt
      */
@@ -30,7 +30,7 @@ public class PortOfCall {
     /**
      * Constructeur vide
      */
-    public PortOfCall(){
+    public Stop(){
     }
 
     /**
@@ -40,7 +40,7 @@ public class PortOfCall {
      * @param longitude la longitude de l'arrêt
      * @param latitude la latitude de l'arrêt
      */
-    public PortOfCall(UUID id, String name, Double longitude, Double latitude) {
+    public Stop(UUID id, String name, Double longitude, Double latitude) {
         setId(id);
         this.name = name;
         this.longitude = longitude;
@@ -54,7 +54,7 @@ public class PortOfCall {
      * @param longitude la longitude de l'arrêt
      * @param latitude la latitude de l'arrêt
      */
-    public PortOfCall(String id, String name, Double longitude, Double latitude) {
+    public Stop(String id, String name, Double longitude, Double latitude) {
         this(UUID.fromString(id), name, longitude, latitude);
     }
 
@@ -64,7 +64,7 @@ public class PortOfCall {
      * @param longitude la longitude de l'arrêt
      * @param latitude la latitude de l'arrêt
      */
-    public PortOfCall(String name, Double longitude, Double latitude) {
+    public Stop(String name, Double longitude, Double latitude) {
         this(UUID.randomUUID(), name, longitude, latitude);
     }
 

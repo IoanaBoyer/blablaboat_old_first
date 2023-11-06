@@ -1,28 +1,28 @@
 package nc.blablaboat.application.contract;
 
-import nc.blablaboat.application.model.PortOfCall;
+import nc.blablaboat.application.model.Stop;
 
 import java.util.ArrayList;
 
 /**
  * Interface de la table port_of_call
  */
-public interface PortOfCallDAOInterface {
+public interface StopDAOInterface {
 
     /**
      * Insérer un arret dans la table arret
-     * @param portOfCall l'arrêt à insérer
+     * @param stop l'arrêt à insérer
      */
-    void insert(PortOfCall portOfCall);
+    void insert(Stop stop);
 
     /**
      * Mettre à jour un arret dans la table arret
-     * @param portOfCall l'arrêt à mettre à jour
+     * @param stop l'arrêt à mettre à jour
      */
-    void update(PortOfCall portOfCall);
+    void update(Stop stop);
 
     /**
-     * Supprimer un arret dans la table arret
+     * Supprimer un arrêt dans la table arret
      * @param id l'identifiant de l'arret à supprimer
      */
     void delete(String id);
@@ -32,11 +32,11 @@ public interface PortOfCallDAOInterface {
      * @param id l'identifiant de l'arret à récupérer
      * @return l'arret souhaité
      */
-    PortOfCall getById(String id);
+    Stop getById(String id);
 
     /**
      * Récupérer la liste complète des arrêts
      * @return la liste des arrêts
      */
-    ArrayList<PortOfCall> getAll();
+    ArrayList<Stop> getAll();
 }

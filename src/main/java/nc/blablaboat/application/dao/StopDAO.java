@@ -1,8 +1,8 @@
 package nc.blablaboat.application.dao;
 
-import nc.blablaboat.application.contract.PortOfCallDAOInterface;
+import nc.blablaboat.application.contract.StopDAOInterface;
 import nc.blablaboat.application.dao.connection.ConnectionHolder;
-import nc.blablaboat.application.model.PortOfCall;
+import nc.blablaboat.application.model.Stop;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class PortOfCallDAO implements PortOfCallDAOInterface {
+public class StopDAO implements StopDAOInterface {
     /**
      * La connexion à notre BDD SQLite
      */
@@ -19,19 +19,19 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
     /**
      * Constructeur par défaut
      */
-    public PortOfCallDAO() {
+    public StopDAO() {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     }
 
     @Override
-    public void insert(PortOfCall portOfCall) {
-        String query = "INSERT INTO port_of_call (id, name, longitude, latitude) VALUES (?, ?, ?, ?)";
+    public void insert(Stop stop) {
+        String query = "INSERT INTO stop (id, name, longitude, latitude) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
-            preparedStatement.setString(1, portOfCall.getId());
-            preparedStatement.setString(2, portOfCall.getName());
-            preparedStatement.setDouble(3, portOfCall.getLongitude());
-            preparedStatement.setDouble(4, portOfCall.getLatitude());
+            preparedStatement.setString(1, stop.getId());
+            preparedStatement.setString(2, stop.getName());
+            preparedStatement.setDouble(3, stop.getLongitude());
+            preparedStatement.setDouble(4, stop.getLatitude());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -40,14 +40,14 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
     }
 
     @Override
-    public void update(PortOfCall portOfCall) {
-        String query = "UPDATE port_of_call SET name = ?, longitude = ?, latitude = ? WHERE id = ?";
+    public void update(Stop stop) {
+        String query = "UPDATE stop SET name = ?, longitude = ?, latitude = ? WHERE id = ?";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
-            preparedStatement.setString(1, portOfCall.getId());
-            preparedStatement.setString(2, portOfCall.getName());
-            preparedStatement.setDouble(3, portOfCall.getLongitude());
-            preparedStatement.setDouble(4, portOfCall.getLatitude());
+            preparedStatement.setString(1, stop.getId());
+            preparedStatement.setString(2, stop.getName());
+            preparedStatement.setDouble(3, stop.getLongitude());
+            preparedStatement.setDouble(4, stop.getLatitude());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
 
     @Override
     public void delete(String id) {
-        String query = "DELETE FROM port_of_call WHERE id = ?";
+        String query = "DELETE FROM stop WHERE id = ?";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -69,8 +69,8 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
     }
 
     @Override
-    public PortOfCall getById(String id) {
-        String query = "SELECT * FROM port_of_call WHERE id = ?";
+    public Stop getById(String id) {
+        String query = "SELECT * FROM stop WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -86,9 +86,9 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
     }
 
     @Override
-    public ArrayList<PortOfCall> getAll() {
-        ArrayList<PortOfCall> portOfCalls = new ArrayList<>();
-        String query = "SELECT * FROM port_of_call";
+    public ArrayList<Stop> getAll() {
+        ArrayList<Stop> portOfCalls = new ArrayList<>();
+        String query = "SELECT * FROM stop";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -100,13 +100,13 @@ public class PortOfCallDAO implements PortOfCallDAOInterface {
         return portOfCalls;
     }
 
-    private PortOfCall createFromResultSet(ResultSet resultSet) {
+    private Stop createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id"));
             String name = resultSet.getString("name");
             double longitude = resultSet.getDouble("longitude");
             double latitude = resultSet.getDouble("latitude");
-            return new PortOfCall(id, name, longitude, latitude);
+            return new Stop(id, name, longitude, latitude);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

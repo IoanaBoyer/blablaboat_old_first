@@ -29,7 +29,7 @@ public class SchemaInitializer {
                     ");");
 
             // Création de la table arret
-            statement.execute("CREATE TABLE IF NOT EXISTS port_of_call (" +
+            statement.execute("CREATE TABLE IF NOT EXISTS stop (" +
                     "id UUID PRIMARY KEY, " +
                     "name VARCHAR(255) NOT NULL, " +
                     "longitude DOUBLE PRECISION NOT NULL, " +
