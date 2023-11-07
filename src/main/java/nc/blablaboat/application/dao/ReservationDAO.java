@@ -169,6 +169,7 @@ public class ReservationDAO implements ReservationDAOInterface {
 
     @Override
     //La recherche porte uniquement sur l'arrêt d'arrivée
+    // TODO Définir si on fait aussi une recherche sur l'arrêt de départ
     public ArrayList<Reservation> getBySearchTerm(String searchTerm) {
         ArrayList<Reservation> matchingReservations = new ArrayList<>();
 
