@@ -27,6 +27,10 @@ public class UserDAO implements UserDAOInterface {
     }
 
 
+    public Connection getCONNECTION() {
+        return CONNECTION;
+    }
+
     @Override
     public void insert(User user) {
         String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) " +
@@ -154,7 +158,7 @@ public class UserDAO implements UserDAOInterface {
         return users;
     }
 
-    private User createFromResultSet(ResultSet resultSet) throws SQLException {
+    public User createFromResultSet(ResultSet resultSet) throws SQLException {
         try{
             UUID id = UUID.fromString(resultSet.getString("id"));
             String nickname = resultSet.getString("nickname");
