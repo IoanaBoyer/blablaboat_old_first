@@ -71,6 +71,7 @@ public class SchemaInitializer {
         try (var statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS arret ("
                     + "id VARCHAR(36) PRIMARY KEY,"
+                    + "name TEXT,"
                     + "longitude DOUBLE PRECISION NOT NULL,"
                     + "latitude DOUBLE PRECISION NOT NULL"
                     + ")");
@@ -86,7 +87,6 @@ public class SchemaInitializer {
                     + "FOREIGN KEY (reservation_id) REFERENCES reservation (id),"
                     + ")");
         }
-                    + "FOREIGN KEY (user_id) REFERENCES user (id)"
     }
 
 }
