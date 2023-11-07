@@ -1,5 +1,6 @@
 package nc.blablaboat.application.testfonctionnel;
 
+import nc.blablaboat.application.dao.UserDAO;
 import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
 import nc.blablaboat.application.service.ReservationService;
@@ -21,7 +22,7 @@ public class UtilisateurTest {
     // ----
 
 
-    private final UserService userService = new UserService();
+    private final UserDAO userDAO = new UserDAO();
     private final User defaultUser = new User("Maurice", "Search", "User2", 30, "p@ssw0rd", false);
     private final ReservationService reservationService = new ReservationService();
 
@@ -29,8 +30,8 @@ public class UtilisateurTest {
     // 3.  Récupération de ses réservations
     @Test
     public void AfficherReservationsUtilisateur() {
-        userService.insert(defaultUser);
-        userService.getById(defaultUser.getId());  //TODO: a voir
+        userDAO.insert(defaultUser);
+        userDAO.getById(defaultUser.getId());  //TODO: a voir
 
 //        ArrayList<Reservation> reservations = reservationService.getAllById();
 
@@ -40,8 +41,8 @@ public class UtilisateurTest {
     // 4a. utilisateur --- page acceuil -- réservations proposées.
     @Test
     public void AfficherPageAccueil() {
-        userService.insert(defaultUser);
-        userService.getById(defaultUser.getId()); // on est censé déjà avoir l'utilisateur une fois logé (je crois).
+        userDAO.insert(defaultUser);
+        userDAO.getById(defaultUser.getId()); // on est censé déjà avoir l'utilisateur une fois logé (je crois).
 
         ArrayList<Reservation> reservations = reservationService.getAll();
 
@@ -51,8 +52,8 @@ public class UtilisateurTest {
     // 4b. utilisateur -- recherche -- réservation
     @Test
     public void PageAccueilRechercheReservation() {
-        userService.insert(defaultUser);
-        userService.getById(defaultUser.getId());
+        userDAO.insert(defaultUser);
+        userDAO.getById(defaultUser.getId());
 
         reservationService.getBySearchTerm("2");
     }

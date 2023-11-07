@@ -49,18 +49,18 @@ public class ApplicationTest {
     // Attempt to retrieve the user by ID and verify that it returns null, indicating the user is deleted.
     // Search for users with a specific keyword and ensure the results are as expected.
 
-    // 2.Arret Service Functional Test:
-    // Create a new Arret (bus stop) object.
-    // Verify that the Arret object has a non-null ID after creation.
-    // Update the longitude and latitude of the Arret.
-    // Verify that the changes are correctly reflected in the Arret object.
-    // Ensure that you can retrieve the Arret by its ID.
-    // Verify that the retrieved Arret's attributes match the expected values.
-    // Create another Arret without specifying an ID.
-    // Ensure that the Arret is created successfully and has a non-null ID.
-    // Create multiple Arret objects.
-    // Ensure that the Arret objects have unique IDs.
-    // Verify that you can retrieve all Arrets and that the list contains all created Arret objects.
+    // 2.Stop Service Functional Test:
+    // Create a new Stop (bus stop) object.
+    // Verify that the Stop object has a non-null ID after creation.
+    // Update the longitude and latitude of the Stop.
+    // Verify that the changes are correctly reflected in the Stop object.
+    // Ensure that you can retrieve the Stop by its ID.
+    // Verify that the retrieved Stop's attributes match the expected values.
+    // Create another Stop without specifying an ID.
+    // Ensure that the Stop is created successfully and has a non-null ID.
+    // Create multiple Stop objects.
+    // Ensure that the Stop objects have unique IDs.
+    // Verify that you can retrieve all Arrets and that the list contains all created Stop objects.
 
     // 3.Reservation Service Functional Test:
     // Create a new Reservation and insert it into the database.

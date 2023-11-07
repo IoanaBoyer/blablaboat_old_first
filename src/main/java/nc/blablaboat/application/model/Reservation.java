@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class Reservation {
     private UUID id;
-    private Arret depart;
-    private Arret arrivee;
+    private Stop depart;
+    private Stop arrivee;
     private Date dateHeureDepart;
     private Date dateHeureArrivee;
     private Integer nbPassager; //TODO: deplacer en tant que méthode
@@ -17,7 +17,7 @@ public class Reservation {
     private ArrayList<User> listePassagers;
     private User conducteur;
 
-    public Reservation(UUID id, Arret depart, Arret arrivee, Date dateHeureDepart, Date dateHeureArrivee,
+    public Reservation(UUID id, Stop depart, Stop arrivee, Date dateHeureDepart, Date dateHeureArrivee,
                        Integer nbPassager, Integer tarifUnitaire, String specifications, ArrayList<User> listePassagers,
                        User conducteur) {
         setId(id);
@@ -40,19 +40,19 @@ public class Reservation {
         this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
     }
 
-    public Arret getDepart() {
+    public Stop getDepart() {
         return depart;
     }
 
-    public void setDepart(Arret depart) {
+    public void setDepart(Stop depart) {
         this.depart = depart;
     }
 
-    public Arret getArrivee() {
+    public Stop getArrivee() {
         return arrivee;
     }
 
-    public void setArrivee(Arret arrivee) {
+    public void setArrivee(Stop arrivee) {
         this.arrivee = arrivee;
     }
 

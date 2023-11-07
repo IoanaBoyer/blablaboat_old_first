@@ -86,7 +86,7 @@ public class StopDAO implements StopDAOInterface {
 
     /**
      * Récupérer un arrêt dans la table arrêt via son id
-     * @param id l'identifiant de l'arret à récupérer
+     * @param id l'identifiant de l'stop à récupérer
      * @return L'arrêt souhaité
      */
     @Override

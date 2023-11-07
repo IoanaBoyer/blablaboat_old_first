@@ -12,17 +12,15 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
-    private final UserService userService = new UserService();
     private final UserDAO userDAO = new UserDAO();
+    private final UserService userService = new UserService();
 
     @Test
     public void testLogApp(){
-
     }
 
     @Test
-    public void testConsultProposals{
-
+    public void testConsultProposals() {
     }
 
     @Test
@@ -56,7 +54,7 @@ public class UserServiceTest {
     public void testCreateUser() {
         // When
         User user = new User(UUID.randomUUID(), "john_doe", "Doe", "John", 35, "password123", true);
-        userService.insert(user);
+        userDAO.insert(user);
 
         // Then
         assertNotNull(user.getId());
@@ -66,11 +64,11 @@ public class UserServiceTest {
     public void testUpdateUser() {
         // Given
         User user = new User(UUID.randomUUID(), "jane_smith", "Smith", "Jane", 28, "securePassword", false);
-        userService.insert(user);
+        userDAO.insert(user);
 
         // When
         user = new User(user.getId(), "jane_smith", "Smith", "Jane", 29, "securePassword", true);
-        userService.update(user);
+        userDAO.update(user);
 
         // Then
         User updatedUser = userService.consultUserProfil(user.getId());
@@ -82,10 +80,10 @@ public class UserServiceTest {
     public void testDeleteUser() {
         // Given
         User user = new User(UUID.randomUUID(), "test_user", "Test", "User", 30, "test123", true);
-        userService.insert(user);
+        userDAO.insert(user);
 
         // When
-        userService.delete(user.getId());
+        userDAO.delete(user.getId());
 
         // Then
         User deletedUser = userService.consultUserProfil(user.getId());
@@ -96,10 +94,10 @@ public class UserServiceTest {
     public void testGetUserById() {
         // Given
         User user = new User(UUID.randomUUID(), "test_user", "Test", "User", 30, "test123", true);
-        userService.insert(user);
+        userDAO.insert(user);
 
         // When
-        User retrievedUser = userService.getById(user.getId());
+        User retrievedUser = userDAO.getById(user.getId());
 
         // Then
         assertNotNull(retrievedUser);
@@ -115,11 +113,11 @@ public class UserServiceTest {
         // Créez un ou plusieurs utilisateurs correspondant au terme de recherche
         User user1 = new User(UUID.randomUUID(), "search_user1", "Search", "User1", 25, "search123", true);
         User user2 = new User(UUID.randomUUID(), "search_user2", "Search", "User2", 30, "search456", false);
-        userService.insert(user1);
-        userService.insert(user2);
+        userDAO.insert(user1);
+        userDAO.insert(user2);
 
         // When
-        ArrayList<User> searchResults = userService.getBySearchTerm("Search");
+        ArrayList<User> searchResults = userDAO.getBySearchTerm("Search");
 
         // Then
         assertNotNull(searchResults);
@@ -140,8 +138,8 @@ public class UserServiceTest {
 
         // When
         User userOriginal = new User(id, nickname, lastname, firstname, age, password, isDriver);
-        userService.insert(userOriginal);
-        User user = userService.getById(userOriginal.getId());
+        userDAO.insert(userOriginal);
+        User user = userDAO.getById(userOriginal.getId());
 
         // Then
         assertNotNull(user.getId());

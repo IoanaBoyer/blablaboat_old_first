@@ -2,10 +2,10 @@ package nc.blablaboat.application.dao;
 
 import nc.blablaboat.application.contract.ReservationInterface;
 import nc.blablaboat.application.dao.connection.ConnectionHolder;
-import nc.blablaboat.application.model.Arret;
+import nc.blablaboat.application.model.Stop;
 import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
-import nc.blablaboat.application.service.ArretService;
+import nc.blablaboat.application.service.StopService;
 import nc.blablaboat.application.service.UserService;
 
 import java.sql.Connection;
@@ -21,8 +21,8 @@ public class ReservationDAO implements ReservationInterface {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     //TODO: private final String tableName = "reservation";
-    private final ArretService arretService = new ArretService();
-    private final UserService userService = new UserService();
+    private final StopDAO stopDAO = new StopDAO();
+    private final UserDAO userDAO = new UserDAO();
     private final PassagersDAO passagersDAO = new PassagersDAO();
 
     // Méthode pour insérer une réservation dans la base de données
@@ -115,16 +115,16 @@ public class ReservationDAO implements ReservationInterface {
         ArrayList<Reservation> matchingReservations = new ArrayList<>();
 
         // Étape 1 : Obtenez tous les départs correspondant au nom saisi
-        ArrayList<Arret> departureArrets = arretService.get("depart", searchTerm);
+        ArrayList<Stop> departureArrets = stopDAO.get("depart", searchTerm);
 
         // Étape 2 : Obtenez tous les arrivées correspondant au nom saisi
-        ArrayList<Arret> arriveeArrets = getBySearchTermInArret("arrivee", searchTerm);
+        ArrayList<Stop> arriveeArrets = getBySearchTermInArret("arrivee", searchTerm);
 
         // Étape 3 : Utilisez les départs et arrivées pour rechercher les réservations correspondantes
         String reservationQuery = "SELECT * FROM reservation WHERE (id_depart = ? OR depart LIKE ?) AND (id_arrivee = ? OR arrivee LIKE ?)";
 
-        for (Arret departureArret : departureArrets) {
-            for (Arret arriveeArret : arriveeArrets) {
+        for (Stop departureArret : departureArrets) {
+            for (Stop arriveeArret : arriveeArrets) {
                 try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(reservationQuery)) {
                     preparedStatement.setString(1, departureArret.getId());
                     preparedStatement.setString(2, "%" + searchTerm + "%");
@@ -151,14 +151,14 @@ public class ReservationDAO implements ReservationInterface {
     private Reservation createFromResultSet(ResultSet resultSet) {
         try {
             UUID id = UUID.fromString(resultSet.getString("id")); // Récupérez UUID
-            Arret depart = arretService.getById(resultSet.getString("depart_id"));
-            Arret arrivee = arretService.getById(resultSet.getString("arrivee_id"));
+            Stop depart = stopDAO.getById(resultSet.getString("depart_id"));
+            Stop arrivee = stopDAO.getById(resultSet.getString("arrivee_id"));
             Date dateHeureDepart = resultSet.getTimestamp("date_heure_depart");
             Date dateHeureArrivee = resultSet.getTimestamp("date_heure_arrivee");
             int nbPassager = resultSet.getInt("nb_passager");
             int tarifUnitaire = resultSet.getInt("tarif_unitaire");
             String specifications = resultSet.getString("specifications");
-            User conducteur = userService.getById(resultSet.getString("conducteur_id"));
+            User conducteur = userDAO.getById(resultSet.getString("conducteur_id"));
             ArrayList<User> passagers = passagersDAO.getByIdReservation(id.toString());
             return new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee, nbPassager, tarifUnitaire, specifications, passagers, conducteur);
         } catch (SQLException e) {

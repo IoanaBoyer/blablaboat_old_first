@@ -3,6 +3,7 @@ package nc.blablaboat.application;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
+import nc.blablaboat.application.dao.UserDAO;
 import nc.blablaboat.application.model.User;
 import nc.blablaboat.application.service.UserService;
 
@@ -27,15 +28,16 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
 
         UserService userService = new UserService();
+        UserDAO userDAO = new UserDAO();
 
         // Exemple d'utilisation du service
         User user1 = new User("AliceM","Alice", "MERVEILLE", 50, "zebi", false);
         user1.setLastname("Alice");
         user1.setAge(30);
 
-        userService.insert(user1);
+        userDAO.insert(user1);
 
-        User user1dao = userService.getById(user1.getId());
+        User user1dao = userDAO.getById(user1.getId());
         System.out.println(user1dao);
 
 

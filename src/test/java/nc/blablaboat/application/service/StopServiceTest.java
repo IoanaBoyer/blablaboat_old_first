@@ -19,10 +19,10 @@ public class StopServiceTest {
         String name = "Ilot signal";
 
         // When
-        Arret arret = new Arret(name,longitude, latitude);
+        Stop stop = new Stop(name,longitude, latitude);
 
         // Then
-        assertNotNull(arret.getId());
+        assertNotNull(stop.getId());
     }
 
     @Test
@@ -34,10 +34,10 @@ public class StopServiceTest {
         String name = "Ilôt maitre";
 
         // When
-        Arret arret = new Arret(id, name, longitude, latitude);
+        Stop stop = new Stop(id, name, longitude, latitude);
 
         // Then
-        assertEquals(id.toString(), arret.getId());
+        assertEquals(id.toString(), stop.getId());
     }
 
     @Test
@@ -48,11 +48,11 @@ public class StopServiceTest {
         String name = "Ilôt maitre";
 
         // When
-        Arret arret = new Arret(name, longitude, latitude);
+        Stop stop = new Stop(name, longitude, latitude);
 
         // Then
-        assertEquals(longitude, arret.getLongitude());
-        assertEquals(latitude, arret.getLatitude());
+        assertEquals(longitude, stop.getLongitude());
+        assertEquals(latitude, stop.getLatitude());
     }
 
     @Test
@@ -61,18 +61,18 @@ public class StopServiceTest {
         Double longitude = 45.123;
         Double latitude = -30.456;
         String name = "Ilôt maitre";
-        Arret arret = new Arret(name, longitude, latitude);
+        Stop stop = new Stop(name, longitude, latitude);
 
         // When
         Double newLongitude = 50.789;
         Double newLatitude = -40.321;
 
-        arret.setLongitude(newLongitude);
-        arret.setLatitude(newLatitude);
+        stop.setLongitude(newLongitude);
+        stop.setLatitude(newLatitude);
 
         // Then
-        assertEquals(newLongitude, arret.getLongitude());
-        assertEquals(newLatitude, arret.getLatitude());
+        assertEquals(newLongitude, stop.getLongitude());
+        assertEquals(newLatitude, stop.getLatitude());
     }
 
     @Test
@@ -84,9 +84,9 @@ public class StopServiceTest {
         String name = "Ilôt maitre";
 
         // When
-        Arret arret1 = new Arret(UUID.fromString(id), name, longitude, latitude);
-        Arret arret2 = new Arret(id, name, longitude, latitude);
-        Arret arret3 = new Arret(name, longitude, latitude);
+        Stop arret1 = new Stop(UUID.fromString(id), name, longitude, latitude);
+        Stop arret2 = new Stop(id, name, longitude, latitude);
+        Stop arret3 = new Stop(name, longitude, latitude);
 
         // Then
         assertNotNull(arret1.getId());

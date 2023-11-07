@@ -1,7 +1,7 @@
 package nc.blablaboat.application.dao;
 
 import nc.blablaboat.application.dao.connection.ConnectionHolder;
-import nc.blablaboat.application.model.Arret;
+import nc.blablaboat.application.model.Stop;
 import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
 import nc.blablaboat.application.service.UserService;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PassagersDAO {
 
     private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
-    private final UserService userService = new UserService();
+    private final UserDAO userDAO = new UserDAO();
 
     // Méthode pour insérer une réservation dans la base de données
     public void insert(Reservation reservation) {
@@ -99,7 +99,7 @@ public class PassagersDAO {
     }
     private User createFromResultSet(ResultSet resultSet) {
         try {
-            return userService.getById(resultSet.getString("user_id"));
+            return userDAO.getById(resultSet.getString("user_id"));
         } catch (Exception e) {
             // Gérer l'exception ou la propager
             throw new RuntimeException("Erreur: recupération des passager de la réservation",e);

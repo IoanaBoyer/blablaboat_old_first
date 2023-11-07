@@ -20,7 +20,7 @@ public class SchemaInitializer {
         try {
             createTableUser();
             createTableReservation();
-            createTableArret();
+            createTableStop();
             createTablePassager();
 
             connection.commit();
@@ -59,17 +59,17 @@ public class SchemaInitializer {
                     + "specifications TEXT,"
                     + "passagers_id VARCHAR(36),"
                     + "conducteur_id VARCHAR(36),"
-                    + "FOREIGN KEY (depart_id) REFERENCES arret (id),"
-                    + "FOREIGN KEY (arrivee_id) REFERENCES arret (id),"
+                    + "FOREIGN KEY (depart_id) REFERENCES stop (id),"
+                    + "FOREIGN KEY (arrivee_id) REFERENCES stop (id),"
                     + "FOREIGN KEY (passagers_id) REFERENCES passager (reservation_id),"
                     + "FOREIGN KEY (conducteur_id) REFERENCES user (id)"
                     + ")");
         }
     }
 
-    private void createTableArret() throws SQLException {
+    private void createTableStop() throws SQLException {
         try (var statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS arret ("
+            statement.execute("CREATE TABLE IF NOT EXISTS stop ("
                     + "id VARCHAR(36) PRIMARY KEY,"
                     + "name TEXT,"
                     + "longitude DOUBLE PRECISION NOT NULL,"
@@ -85,6 +85,7 @@ public class SchemaInitializer {
                     + "user_id VARCHAR(36) NOT NULL,"
                     + "PRIMARY KEY (reservation_id, user_id),"
                     + "FOREIGN KEY (reservation_id) REFERENCES reservation (id),"
+                    + "FOREIGN KEY (user_id) REFERENCES user (id)"
                     + ")");
         }
     }
