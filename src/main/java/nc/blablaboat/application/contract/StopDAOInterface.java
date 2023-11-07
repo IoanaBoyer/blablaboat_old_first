@@ -1,36 +1,35 @@
 package nc.blablaboat.application.contract;
 
 import nc.blablaboat.application.model.Stop;
-
 import java.util.ArrayList;
 
 /**
- * Interface de la table port_of_call
+ * Interface de la table stop
  */
 public interface StopDAOInterface {
 
     /**
-     * Insérer un stop dans la table stop
+     * Insérer un arrêt dans la table stop
      * @param stop l'arrêt à insérer
      */
     void insert(Stop stop);
 
     /**
-     * Mettre à jour un stop dans la table stop
+     * Mettre à jour un arrêt dans la table stop
      * @param stop l'arrêt à mettre à jour
      */
     void update(Stop stop);
 
     /**
      * Supprimer un arrêt dans la table stop
-     * @param id l'identifiant de l'stop à supprimer
+     * @param id l'identifiant de l'arrêt à supprimer
      */
     void delete(String id);
 
     /**
-     * Récupérer un stop dans la table stop via son id
-     * @param id l'identifiant de l'stop à récupérer
-     * @return l'stop souhaité
+     * Récupérer un arrêt dans la table stop via son id
+     * @param id l'identifiant de l'arrêt à récupérer
+     * @return l'arrêt souhaité
      */
     Stop getById(String id);
 
