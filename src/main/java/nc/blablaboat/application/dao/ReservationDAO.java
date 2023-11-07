@@ -44,6 +44,18 @@ public class ReservationDAO implements ReservationDAOInterface {
         this.passagersDAO = new PassagersDAO();
     }
 
+    public StopDAO getStopDAO() {
+        return stopDAO;
+    }
+
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    public PassagersDAO getPassagersDAO() {
+        return passagersDAO;
+    }
+
     public Connection getCONNECTION() {
         return CONNECTION;
     }

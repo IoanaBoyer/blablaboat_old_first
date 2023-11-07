@@ -96,6 +96,9 @@ public class User {
         this(UUID.randomUUID(), nickname, lastname, firstname, age, password, isDriver);
     }
 
+    public User(UUID conducteurId, String testConducteur, String driver, String mail, String password) {
+    }
+
     /**
      * Récupère l'identifiant de l'utilisateur
      * @return id
