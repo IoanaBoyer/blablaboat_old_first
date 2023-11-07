@@ -28,6 +28,10 @@ public class UserService {
         this.reservationService = new ReservationService();
     }
 
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
     /**
      * TODO Se connecter à l'application (pseudo et mdp correct) -> à mettre dans la classe Application non ?
      */

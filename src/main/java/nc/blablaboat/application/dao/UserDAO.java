@@ -31,6 +31,10 @@ public class UserDAO implements UserDAOInterface {
         return CONNECTION;
     }
 
+    /**
+     * Insérer un utilisateur dans la table user
+     * @param user l'utilisateur à insérer
+     */
     @Override
     public void insert(User user) {
         String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) " +
@@ -51,6 +55,10 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+    /**
+     * Mettre à jour un utilisateur dans la table user
+     * @param user l'utilisateur à mettre à jour
+     */
     @Override
     public void update(User user) {
         String query = "UPDATE user SET nickname=?, lastname=?, firstname=?, age=?, password=?, is_driver=? WHERE id=?";
@@ -69,6 +77,10 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+    /**
+     * Supprimer un utilisateur dans la table user
+     * @param id l'identifiant de l'utilisateur à supprimer
+     */
     @Override
     public void delete(String id) { // Modifiez le paramètre pour prendre en charge UUID
         String query = "DELETE FROM user WHERE id=?";
@@ -81,6 +93,11 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+    /**
+     * Récupérer un utilisateur dans la table user via son id
+     * @param id l'identifiant de l'utilisateur à récupérer
+     * @return l'utilisateur souhaité
+     */
     @Override
     public User getById(String id) { // TODO Modifier le paramètre pour prendre en charge UUID
         String query = "SELECT * FROM user WHERE id = ?";
@@ -110,6 +127,11 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+    /**
+     * Récupérer une liste d'utilisateurs correspondant à une recherche
+     * @param searchTerm le(s) mot(s) clé(s) de la recherche
+     * @return la liste des utilisateurs correspondant à la recherche
+     */
     @Override
     public ArrayList<User> getBySearchTerm(String searchTerm) {
         ArrayList<User> matchingUsers = new ArrayList<>();
@@ -143,6 +165,10 @@ public class UserDAO implements UserDAOInterface {
         return matchingUsers;
     }
 
+    /**
+     * Récupérer la liste complète des utilisateurs
+     * @return la liste des utilisateurs
+     */
     @Override
     public ArrayList<User> getAll() {
         ArrayList<User> users = new ArrayList<>();
@@ -158,6 +184,11 @@ public class UserDAO implements UserDAOInterface {
         return users;
     }
 
+    /**
+     * Créer un utilisateur à partir d'un ResultSet
+     * @param resultSet le ResultSet à utiliser
+     * @return L'utilisateur créé
+     */
     public User createFromResultSet(ResultSet resultSet) throws SQLException {
         try{
             UUID id = UUID.fromString(resultSet.getString("id"));

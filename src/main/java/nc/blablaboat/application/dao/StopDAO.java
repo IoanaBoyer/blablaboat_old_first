@@ -23,12 +23,16 @@ public class StopDAO implements StopDAOInterface {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     }
 
+    /**
+     * Getter de la connexion
+     * @return CONNECTION
+     */
     public Connection getCONNECTION() {
         return CONNECTION;
     }
 
     /**
-     * Insérer un arrêt dans la table arrêt
+     * Insérer un arrêt dans la table stop
      * @param stop l'arrêt à insérer
      */
     @Override
@@ -48,7 +52,7 @@ public class StopDAO implements StopDAOInterface {
     }
 
     /**
-     * Mettre à jour un arrêt dans la table arrêt
+     * Mettre à jour un arrêt dans la table stop
      * @param stop l'arrêt à mettre à jour
      */
     @Override
@@ -68,7 +72,7 @@ public class StopDAO implements StopDAOInterface {
     }
 
     /**
-     * Supprimer un arrêt dans la table arrêt
+     * Supprimer un arrêt dans la table stop
      * @param id l'identifiant de l'arrêt à supprimer
      */
     @Override
@@ -86,7 +90,7 @@ public class StopDAO implements StopDAOInterface {
 
     /**
      * Récupérer un arrêt dans la table arrêt via son id
-     * @param id l'identifiant de l'stop à récupérer
+     * @param id l'identifiant de l'arrêt à récupérer
      * @return L'arrêt souhaité
      */
     @Override
@@ -104,6 +108,39 @@ public class StopDAO implements StopDAOInterface {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    /**
+     * Récupérer une liste d'arrêts correspondant à une recherche
+     * @param searchTerm le(s) mot(s) clé(s) de la recherche
+     * @return la liste des arrêts correspondant à la recherche
+     */
+    @Override
+    public ArrayList<Stop> getBySearchTerm(String searchTerm) {
+        ArrayList<Stop> matchingStops = new ArrayList<>();
+
+        String query = "SELECT * FROM stop WHERE name LIKE ?";
+
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + searchTerm + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    UUID id = UUID.fromString(resultSet.getString("id")); // Récupérez UUID
+                    String name = resultSet.getString("name");
+                    double longitude = resultSet.getDouble("longitude");
+                    double latitude = resultSet.getDouble("latitude");
+
+                    Stop stop = new Stop(id, name, longitude, latitude);
+                    matchingStops.add(stop);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return matchingStops;
     }
 
     /**

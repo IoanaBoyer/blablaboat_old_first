@@ -34,6 +34,13 @@ public interface StopDAOInterface {
     Stop getById(String id);
 
     /**
+     * Récupérer une liste d'arrêts correspondant à une recherche
+     * @param searchTerm le(s) mot(s) clé(s) de la recherche
+     * @return la liste des arrêts correspondant à la recherche
+     */
+    ArrayList<Stop> getBySearchTerm(String searchTerm);
+
+    /**
      * Récupérer la liste complète des arrêts
      * @return la liste des arrêts
      */
