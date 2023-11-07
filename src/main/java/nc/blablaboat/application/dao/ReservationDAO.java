@@ -114,27 +114,39 @@ public class ReservationDAO implements ReservationInterface {
     public ArrayList<Reservation> getBySearchTerm(String searchTerm) {
         ArrayList<Reservation> matchingReservations = new ArrayList<>();
 
-        String query = "SELECT * FROM reservation WHERE id LIKE ? OR depart LIKE ? OR arrivee LIKE ?";
+        // Étape 1 : Obtenez tous les départs correspondant au nom saisi
+        ArrayList<Arret> departureArrets = arretService.get("depart", searchTerm);
 
-        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
-            preparedStatement.setString(1, "%" + searchTerm + "%");
-            preparedStatement.setString(2, "%" + searchTerm + "%");
-            preparedStatement.setString(3, "%" + searchTerm + "%");
+        // Étape 2 : Obtenez tous les arrivées correspondant au nom saisi
+        ArrayList<Arret> arriveeArrets = getBySearchTermInArret("arrivee", searchTerm);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Reservation reservation = createFromResultSet(resultSet);
-                    matchingReservations.add(reservation);
+        // Étape 3 : Utilisez les départs et arrivées pour rechercher les réservations correspondantes
+        String reservationQuery = "SELECT * FROM reservation WHERE (id_depart = ? OR depart LIKE ?) AND (id_arrivee = ? OR arrivee LIKE ?)";
+
+        for (Arret departureArret : departureArrets) {
+            for (Arret arriveeArret : arriveeArrets) {
+                try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(reservationQuery)) {
+                    preparedStatement.setString(1, departureArret.getId());
+                    preparedStatement.setString(2, "%" + searchTerm + "%");
+                    preparedStatement.setString(3, arriveeArret.getId());
+                    preparedStatement.setString(4, "%" + searchTerm + "%");
+
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        while (resultSet.next()) {
+                            Reservation reservation = createFromResultSet(resultSet);
+                            matchingReservations.add(reservation);
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
+
         return matchingReservations;
     }
-
 
     private Reservation createFromResultSet(ResultSet resultSet) {
         try {

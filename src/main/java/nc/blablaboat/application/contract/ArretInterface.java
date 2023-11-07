@@ -12,7 +12,7 @@ public interface ArretInterface {
 
     void delete(String id);
 
-    Arret getById(String id);
+    ArrayList<Arret> getById(String id);
 
     // Méthode pour récupérer tous les arrêts
     ArrayList<Arret> getAll();
