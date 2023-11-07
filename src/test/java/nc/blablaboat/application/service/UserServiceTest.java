@@ -1,5 +1,6 @@
 package nc.blablaboat.application.service;
 
+import nc.blablaboat.application.dao.UserDAO;
 import nc.blablaboat.application.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,48 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
     private final UserService userService = new UserService();
+    private final UserDAO userDAO = new UserDAO();
+
+    @Test
+    public void testLogApp(){
+
+    }
+
+    @Test
+    public void testConsultProposals{
+
+    }
+
+    @Test
+    public void testConsultUserProfil(){
+
+    }
+
+    @Test
+    public void testSearchUser(){}
+
+    @Test
+    public void testInsert(){}
+
+    @Test
+    public void testUpdate(){
+
+    }
+
+    @Test
+    public void testDelete(){}
+
+    @Test
+    public void testGetById(){
+
+    }
+
+    @Test
+    public void testGetBySearchTerm(){}
 
     @Test
     public void testCreateUser() {
@@ -142,4 +179,6 @@ public class UserServiceTest {
         assertEquals(user1.getAge(), user2.getAge(), user3.getAge());
         // You can continue to verify other attributes as needed.
     }
+
+
 }

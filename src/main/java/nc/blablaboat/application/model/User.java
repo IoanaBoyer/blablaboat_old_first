@@ -1,7 +1,5 @@
 package nc.blablaboat.application.model;
 
-import nc.blablaboat.application.contract.UserInterface;
-
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,6 +51,7 @@ public class User {
 
     /**
      * Constructeur avec initialisation des attributs
+     * @param id l'identifiant de l'utilisateur de type UUID
      * @param nickname le pseudo de l'utilisateur
      * @param lastname le nom de l'utilisateur
      * @param firstname le prénom de l'utilisateur
@@ -69,9 +68,30 @@ public class User {
         this.password = password;
         this.isDriver = isDriver;
     }
+
+    /**
+     * Constructeur avec initialisation des attributs
+     * @param id l'identifiant de l'utilisateur de type String
+     * @param nickname le pseudo de l'utilisateur
+     * @param lastname le nom de l'utilisateur
+     * @param firstname le prénom de l'utilisateur
+     * @param age l'âge de l'utilisateur
+     * @param password le mot de passe de l'utilisateur
+     * @param isDriver type de l'utilisateur
+     */
     public User(String id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
         this(UUID.fromString(id), nickname, lastname, firstname, age, password, isDriver);
     }
+
+    /**
+     * Constructeur avec initialisation des attributs sans fournir l'id
+     * @param nickname le pseudo de l'utilisateur
+     * @param lastname le nom de l'utilisateur
+     * @param firstname le prénom de l'utilisateur
+     * @param age l'âge de l'utilisateur
+     * @param password le mot de passe de l'utilisateur
+     * @param isDriver type de l'utilisateur
+     */
     public User(String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
         this(UUID.randomUUID(), nickname, lastname, firstname, age, password, isDriver);
     }
@@ -85,8 +105,8 @@ public class User {
     }
 
     /**
-     * Modifier l'identifiant de l'utilisateur
-     * @param id le nouveau identifiant de l'utilisateur
+     * Modifie l'identifiant de l'utilisateur
+     * @param id le nouvel identifiant de l'utilisateur
      */
     public void setId(UUID id) {
         this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
@@ -172,10 +192,18 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Récupère le type de l'utilisateur
+     * @return isDriver
+     */
     public Boolean getDriver() {
         return isDriver;
     }
 
+    /**
+     * Modifie le type d'utilisateur
+     * @param driver le nouveau type d'utilisateur
+     */
     public void setDriver(Boolean driver) {
         isDriver = driver;
     }
@@ -191,8 +219,8 @@ public class User {
                 ", nickname='" + nickname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
-                ", age=" + age +
-                ", password='" + password + '\'' +
+                ", age=" + age + '\'' +
+                ", isDriver=" + isDriver +
                 '}';
     }
 }

@@ -1,50 +1,45 @@
 package nc.blablaboat.application.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import nc.blablaboat.application.contract.UserInterface;
+import java.util.ArrayList;
 import nc.blablaboat.application.dao.UserDAO;
+import nc.blablaboat.application.model.Reservation;
 import nc.blablaboat.application.model.User;
 
 /**
  * Méthodes de la classe User
  */
-public class UserService implements UserInterface {
+public class UserService {
     /**
      * Connexion à la table User
      */
-    private UserDAO UserDAO;
+    private final UserDAO userDAO;
 
-    //TODO ajouter demandeService & reservationService
+    /**
+     * Utilisation de ReservationService
+     */
+    private final ReservationService reservationService;
 
     /**
      * Constructeur par défaut
      */
     public UserService() {
-        this.UserDAO = new UserDAO();
+        this.userDAO = new UserDAO();
+        this.reservationService = new ReservationService();
     }
 
     /**
-     * TODO Se connecter à l'application (pseudo et mdp correct)
+     * TODO Se connecter à l'application (pseudo et mdp correct) -> à mettre dans la classe Application non ?
      */
-    public void logApp(){
-
-    }
+    public void logApp() {}
 
     /**
-     * TODO Consulter les trajets proposés
+     * Consulter la liste des réservations proposées
+     * @return liste des réservations en cours
      */
-    public void consultProposals(){
-
-    }
-
-    /**
-     * TODO Consulter les trajets demandés
-     */
-    public void consultRequests(){
-
+    public ArrayList<Reservation> consultReservations() {
+        // TODO ajouter un filtre pour voir les réservation dont la date de départ est supérieure à la date actuelle
+        return reservationService.getAll();
     }
 
     /**
@@ -52,8 +47,8 @@ public class UserService implements UserInterface {
      * @param id l'identifiant de l'utilisateur
      * @return l'utilisateur recherché
      */
-    public User consultUserProfil(String id){
-        return getById(id);
+    public User consultUserProfil(String id) {
+        return userDAO.getById(id);
     }
 
     /**
@@ -62,42 +57,14 @@ public class UserService implements UserInterface {
      * @return une liste d'utilisateur correspondant au(x) mot(s) clé(s)
      */
     public ArrayList<User> searchUser(String searchTerm){
-        return getBySearchTerm(searchTerm);
+        return userDAO.getBySearchTerm(searchTerm);
     }
 
     /**
-     * Créer un utilisateur dans la table user
-     * @param user l'utilisateur à ajouter
+     * Consulter la liste des utilisateurs
+     * @return la liste des utilisateurs
      */
-    @Override
-    public void insert(User user) {
-        UserDAO.insert(user);
-    }
-    /**
-     * Mettre à jour un utilisateur dans la table user
-     * @param user l'utilisateur à mettre à jour
-     */
-    @Override
-    public void update(User user) {
-            UserDAO.update(user);
-    }
-
-    /**
-     * Supprimer un utilisateur dans la table user
-     * @param id l'identifiant de l'utilisateur à supprimer
-     */
-    @Override
-    public void delete(String id) {
-        UserDAO.delete(id);
-    }
-
-    @Override
-    public User getById(String id){
-        return UserDAO.getById(id);
-    }
-
-    @Override
-    public ArrayList<User> getBySearchTerm(String searchTerm) {
-        return UserDAO.getBySearchTerm(searchTerm);
+    public ArrayList<User> consultUsers() {
+        return userDAO.getAll();
     }
 }
