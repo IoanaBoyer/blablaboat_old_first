@@ -14,14 +14,7 @@ public class StopDAO implements StopDAOInterface {
     /**
      * La connexion à notre BDD SQLite
      */
-    private final Connection CONNECTION;
-
-    /**
-     * Constructeur par défaut
-     */
-    public StopDAO() {
-        this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
-    }
+    private final Connection CONNECTION = ConnectionHolder.INSTANCE.getConnection();
 
     /**
      * Getter de la connexion
@@ -103,6 +96,7 @@ public class StopDAO implements StopDAOInterface {
                     return createFromResultSet(resultSet);
                 }
             }
+            System.err.println("WARNING: Arret non trouvé dans la table avec l'id "+ id);
         } catch (SQLException e) {
             // Gérer l'exception ou la propager
             throw new RuntimeException(e);

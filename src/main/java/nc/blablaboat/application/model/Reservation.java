@@ -40,19 +40,19 @@ public class Reservation {
         this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
     }
 
-    public Stop getDepart() {
+    public Stop getDeparture() {
         return depart;
     }
 
-    public void setDepart(Stop depart) {
+    public void setDeparture(Stop depart) {
         this.depart = depart;
     }
 
-    public Stop getArrivee() {
+    public Stop getArrival() {
         return arrivee;
     }
 
-    public void setArrivee(Stop arrivee) {
+    public void setArrival(Stop arrivee) {
         this.arrivee = arrivee;
     }
 

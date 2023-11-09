@@ -17,7 +17,7 @@ public class UserAccountView extends BaseLayout {
     }
 
     private void showProfile() {
-        String userId = "79f814cf-1436-4c49-be7e-89e2faf35dfc";
+        String userId = "00000000-0000-0000-0000-000000000000";
         User u = userService.consultUserProfil(userId); // Replace "user_id" with the actual u's ID
         VerticalLayout profileLayout = new VerticalLayout(
                 new H2("User Profile"),

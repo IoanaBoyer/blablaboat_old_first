@@ -55,6 +55,10 @@ public class UserService {
         return userDAO.getById(id);
     }
 
+    public User getById(String id) {
+        return userDAO.getById(id);
+    }
+
     /**
      * Rechercher un utilisateur avec un(des) mot(s) clé(s)
      * @param searchTerm la recherche

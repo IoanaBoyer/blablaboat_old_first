@@ -127,8 +127,8 @@ public class ReservationDAOTest {
             reservationDAO.insert(reservation);
 
             // Modifier les attributs de la réservation
-            reservation.setDepart(arrivee);
-            reservation.setArrivee(depart);
+            reservation.setDeparture(arrivee);
+            reservation.setArrival(depart);
             reservation.setTarifUnitaire(150);
             reservation.setNbPassager(2);
 
@@ -138,9 +138,9 @@ public class ReservationDAOTest {
             // Vérifier que la réservation est bien mise à jour dans la BDD
             Reservation updatedReservation = reservationDAO.getById(reservationId.toString());
             assertNotNull(updatedReservation, "La réservation mise à jour n'a pas été trouvée dans la BDD.");
-            assertEquals(arrivee.getId(), updatedReservation.getDepart().getId(), "L'ID du départ de la" +
+            assertEquals(arrivee.getId(), updatedReservation.getDeparture().getId(), "L'ID du départ de la" +
                     " réservation mise à jour ne correspond pas à l'attendu.");
-            assertEquals(depart.getId(), updatedReservation.getArrivee().getId(), "L'ID de l'arrivée de" +
+            assertEquals(depart.getId(), updatedReservation.getArrival().getId(), "L'ID de l'arrivée de" +
                     " la réservation mise à jour ne correspond pas à l'attendu.");
             assertEquals(150, updatedReservation.getTarifUnitaire(), "Le tarif de la réservation" +
                     " mise à jour ne correspond pas à l'attendu.");
@@ -414,7 +414,7 @@ public class ReservationDAOTest {
             ArrayList<Reservation> reservationsFound = reservationDAO.getBySearchTerm(searchTerm);
 
             // Vérifier que la réservation avec le terme de recherche dans le nom de l'arrêt d'arrivée est retournée
-            assertTrue(reservationsFound.stream().anyMatch(r -> r.getArrivee().getName().contains(searchTerm)),
+            assertTrue(reservationsFound.stream().anyMatch(r -> r.getArrival().getName().contains(searchTerm)),
                     "Le terme de recherche devrait correspondre au nom de l'arrêt d'arrivée.");
 
             // Vérifier que la réservation sans le terme de recherche n'est pas retournée

@@ -33,16 +33,19 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
 
         // USER - test
-        UserService userService = new UserService();
-        UserDAO userDAO = new UserDAO();
+        if (false) {
+            UserService userService = new UserService();
+            UserDAO userDAO = new UserDAO();
 
-        User user = new User( "AliceM","Alice", "MERVEILLE", 30, "zebi", false);
-        userDAO.insert(user);
+            User user = new User("AliceM", "Alice", "MERVEILLE", 30, "zebi", false);
+            user.setId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+            userDAO.insert(user);
 
-        User user1dao = userDAO.getById(user.getId());
-        System.out.println(user1dao);
-
+            User user1dao = userDAO.getById(user.getId());
+            System.out.println(user1dao);
+        }
         // RESERVATION  - test
+        User user = new User("AliceM", "Alice", "MERVEILLE", 30, "zebi", false);
         Stop depart = new Stop("depart", 0.0,0.0);
         Stop arret = new Stop("arret", 0.0,0.0);
         Date ddep = new Date();

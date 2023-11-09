@@ -14,46 +14,17 @@ import java.util.Date;
 import java.util.UUID;
 
 public class ReservationDAO implements ReservationDAOInterface {
-    /**
-     * La connexion à notre BDD SQLite
-     */
+
     private final Connection CONNECTION;
-
-    /**
-     * L'utilisation de la classe StopDAO
-     */
     private final StopDAO stopDAO;
-
-    /**
-     * L'utilisation de la classe UserDAO
-     */
     private final UserDAO userDAO;
-
-    /**
-     * L'utilisation de la classe PassagersDAO
-     */
     private final PassagersDAO passagersDAO;
 
-    /**
-     * Constructeur par défaut
-     */
     public ReservationDAO() {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
         this.stopDAO = new StopDAO();
         this.userDAO = new UserDAO();
         this.passagersDAO = new PassagersDAO();
-    }
-
-    public StopDAO getStopDAO() {
-        return stopDAO;
-    }
-
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-    public PassagersDAO getPassagersDAO() {
-        return passagersDAO;
     }
 
     public Connection getCONNECTION() {
@@ -72,8 +43,8 @@ public class ReservationDAO implements ReservationDAOInterface {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getId());
-            preparedStatement.setString(2, reservation.getDepart().getId());
-            preparedStatement.setString(3, reservation.getArrivee().getId());
+            preparedStatement.setString(2, reservation.getDeparture().getId());
+            preparedStatement.setString(3, reservation.getArrival().getId());
             preparedStatement.setTimestamp(4, new java.sql.Timestamp(reservation.getDateHeureDepart().getTime()));
             preparedStatement.setTimestamp(5, new java.sql.Timestamp(reservation.getDateHeureArrivee().getTime()));
             preparedStatement.setInt(6, reservation.getNbPassager());
@@ -81,6 +52,10 @@ public class ReservationDAO implements ReservationDAOInterface {
             preparedStatement.setString(8, reservation.getSpecifications());
             preparedStatement.setString(9, reservation.getConducteur().getId());
             preparedStatement.executeUpdate();
+
+            stopDAO.insert(reservation.getDeparture());
+            stopDAO.insert(reservation.getArrival());
+            passagersDAO.insert(reservation.getId(), reservation.getListePassagers());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -95,8 +70,8 @@ public class ReservationDAO implements ReservationDAOInterface {
         String query = "UPDATE reservation SET depart_id = ?, arrivee_id = ?, date_heure_depart = ?, date_heure_arrivee = ?, nb_passager = ?, " +
                 "tarif_unitaire = ?, specifications = ?, conducteur_id = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
-            preparedStatement.setString(1, reservation.getDepart().getId());
-            preparedStatement.setString(2, reservation.getArrivee().getId());
+            preparedStatement.setString(1, reservation.getDeparture().getId());
+            preparedStatement.setString(2, reservation.getArrival().getId());
             preparedStatement.setTimestamp(3, new java.sql.Timestamp(reservation.getDateHeureDepart().getTime()));
             preparedStatement.setTimestamp(4, new java.sql.Timestamp(reservation.getDateHeureArrivee().getTime()));
             preparedStatement.setInt(5, reservation.getNbPassager());
@@ -210,7 +185,7 @@ public class ReservationDAO implements ReservationDAOInterface {
             int tarif_unitaire = resultSet.getInt("tarif_unitaire");
             String specifications = resultSet.getString("specifications");
             User conducteur = userDAO.getById(resultSet.getString("conducteur_id"));
-            ArrayList<User> passagers = passagersDAO.getByIdReservation(resultSet.getString("id"));
+            ArrayList<User> passagers = passagersDAO.getById(resultSet.getString("passagers_id"));
 
             return new Reservation(id, depart, arrivee, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, passagers, conducteur);
         } catch (SQLException e) {
