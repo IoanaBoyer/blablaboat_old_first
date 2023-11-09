@@ -21,7 +21,7 @@ public class SchemaInitializer {
             createTableUser();
             createTableReservation();
             createTableStop();
-            createTablePassager();
+            createTablePassenger();
 
             connection.commit();
         } catch (SQLException e) {
@@ -35,13 +35,13 @@ public class SchemaInitializer {
     private void createTableUser() throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS user ("
-                    + "id VARCHAR(36) PRIMARY KEY,"
+                    + "id TEXT PRIMARY KEY,"
                     + "nickname TEXT NOT NULL,"
                     + "lastname TEXT NOT NULL,"
                     + "firstname TEXT NOT NULL,"
                     + "age INTEGER NOT NULL,"
                     + "password TEXT NOT NULL,"
-                    + "isdriver BOOLEAN NOT NULL"
+                    + "is_driver BOOLEAN NOT NULL"
                     + ")");
         }
     }
@@ -49,19 +49,19 @@ public class SchemaInitializer {
     private void createTableReservation() throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS reservation ("
-                    + "id VARCHAR(36) PRIMARY KEY,"
-                    + "depart_id VARCHAR(36),"
-                    + "arrivee_id VARCHAR(36),"
-                    + "dateHeureDepart DATETIME,"
-                    + "dateHeureArrivee DATETIME,"
-                    + "nbPassager INTEGER,"
-                    + "tarifUnitaire INTEGER,"
+                    + "id TEXT PRIMARY KEY,"
+                    + "departure_id TEXT,"
+                    + "arrival_id TEXT,"
+                    + "departure_date_time TEXT,"
+                    + "arrival_date_time TEXT,"
+                    + "number_of_passengers TEXT,"
+                    + "unit_fare INTEGER,"
                     + "specifications TEXT,"
-                    + "passagers_id VARCHAR(36),"
-                    + "conducteur_id VARCHAR(36),"
-                    + "FOREIGN KEY (depart_id) REFERENCES stop (id),"
-                    + "FOREIGN KEY (arrivee_id) REFERENCES stop (id),"
-                    + "FOREIGN KEY (passagers_id) REFERENCES passager (reservation_id),"
+                    //TODO Enlevé + "passagers_id VARCHAR(36),"
+                    + "conducteur_id TEXT,"
+                    + "FOREIGN KEY (departure_id) REFERENCES stop (id),"
+                    + "FOREIGN KEY (arrival_id) REFERENCES stop (id),"
+                    //+ "FOREIGN KEY (passagers_id) REFERENCES passager (reservation_id),"
                     + "FOREIGN KEY (conducteur_id) REFERENCES user (id)"
                     + ")");
         }
@@ -70,7 +70,7 @@ public class SchemaInitializer {
     private void createTableStop() throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS stop ("
-                    + "id VARCHAR(36) PRIMARY KEY,"
+                    + "id TEXT PRIMARY KEY,"
                     + "name TEXT,"
                     + "longitude DOUBLE PRECISION NOT NULL,"
                     + "latitude DOUBLE PRECISION NOT NULL"
@@ -78,14 +78,14 @@ public class SchemaInitializer {
         }
     }
 
-    private void createTablePassager() throws SQLException {
+    private void createTablePassenger() throws SQLException {
         try (var statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS passager ("
-                    + "reservation_id VARCHAR(36) NOT NULL,"
-                    + "user_id VARCHAR(36) NOT NULL,"
-                    + "PRIMARY KEY (reservation_id, user_id),"
+            statement.execute("CREATE TABLE IF NOT EXISTS passenger ("
+                    + "reservation_id TEXT NOT NULL,"
+                    + "passenger_id TEXT NOT NULL,"
+                    + "PRIMARY KEY (reservation_id, passenger_id),"
                     + "FOREIGN KEY (reservation_id) REFERENCES reservation (id),"
-                    + "FOREIGN KEY (user_id) REFERENCES user (id)"
+                    + "FOREIGN KEY (passenger_id) REFERENCES user (id)"
                     + ")");
         }
     }

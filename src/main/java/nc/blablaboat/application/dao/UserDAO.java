@@ -37,7 +37,7 @@ public class UserDAO implements UserDAOInterface {
      */
     @Override
     public void insert(User user) {
-        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) " +
+        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, is_driver) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {

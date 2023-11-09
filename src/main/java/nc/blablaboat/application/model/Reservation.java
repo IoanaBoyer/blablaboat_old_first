@@ -5,110 +5,244 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Définition de la classe réservation
+ */
 public class Reservation {
+    /**
+     * L'identifiant de la réservation
+     */
     private UUID id;
-    private Stop depart;
-    private Stop arrivee;
-    private Date dateHeureDepart;
-    private Date dateHeureArrivee;
-    private Integer nbPassager; //TODO: deplacer en tant que méthode
-    private Integer tarifUnitaire;
+
+    /**
+     * Le point de départ de la réservation
+     */
+    private Stop departure;
+
+    /**
+     * Le point d'arrivée de la réservation
+     */
+    private Stop arrival;
+
+    /**
+     * La date et l'heure de départ de la réservation
+     */
+    private Date departureDateTime;
+
+    /**
+     * La date et l'heure d'arrivée de la réservation
+     */
+    private Date arrivalDateTime;
+
+    /**
+     * Le nombre de passagers de la réservation
+     */
+    private Integer numberOfPassengers; //TODO: deplacer en tant que méthode
+
+    /**
+     * Le tarif unitaire par passager
+     */
+    private Integer unitFare;
+
+    /**
+     * Les spécifications additionnelles pour la réservation
+     */
     private String specifications;
-    private ArrayList<User> listePassagers;
-    private User conducteur;
 
-    public Reservation(UUID id, Stop depart, Stop arrivee, Date dateHeureDepart, Date dateHeureArrivee,
-                       Integer nbPassager, Integer tarifUnitaire, String specifications, ArrayList<User> listePassagers,
-                       User conducteur) {
+    /**
+     * La liste des passagers de la réservation
+     */
+    private ArrayList<User> passengerList;
+
+    /**
+     * Indicateur si l'utilisateur est conducteur pour cette réservation
+     */
+    private User isDriver;
+
+    /**
+     * Constructeur avec initialisation des attributs
+     * @param id l'identifiant de la réservation de type UUID
+     * @param departure le point de départ de la réservation
+     * @param arrival le point d'arrivée de la réservation
+     * @param departureDateTime la date et l'heure de départ
+     * @param arrivalDateTime la date et l'heure d'arrivée
+     * @param numberOfPassengers le nombre de passagers
+     * @param unitFare le tarif unitaire par passager
+     * @param specifications les spécifications additionnelles pour la réservation
+     * @param passengerList la liste des passagers de la réservation
+     * @param isDriver indique si l'utilisateur est conducteur pour cette réservation
+     */
+    public Reservation(UUID id, Stop departure, Stop arrival, Date departureDateTime, Date arrivalDateTime,
+                       Integer numberOfPassengers, Integer unitFare, String specifications, ArrayList<User>
+                               passengerList, User isDriver) {
         setId(id);
-        this.depart = depart;
-        this.arrivee = arrivee;
-        this.dateHeureDepart = dateHeureDepart;
-        this.dateHeureArrivee = dateHeureArrivee;
-        this.nbPassager = nbPassager;
-        this.tarifUnitaire = tarifUnitaire;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.departureDateTime = departureDateTime;
+        this.arrivalDateTime = arrivalDateTime;
+        this.numberOfPassengers = numberOfPassengers;
+        this.unitFare = unitFare;
         this.specifications = specifications;
-        this.listePassagers = listePassagers;
-        this.conducteur = conducteur;
+        this.passengerList = passengerList;
+        this.isDriver = isDriver;
     }
-
+    /**
+     * Récupère l'identifiant de la réservation
+     * @return id sous forme de chaîne de caractères
+     */
     public String getId() {
         return id.toString();
     }
 
+    /**
+     * Modifie l'identifiant de la réservation
+     * @param id le nouvel identifiant de la réservation
+     */
     public void setId(UUID id) {
         this.id = Objects.requireNonNullElseGet(id, UUID::randomUUID);
     }
 
-    public Stop getDepart() {
-        return depart;
+    /**
+     * Récupère le point de départ de la réservation
+     * @return departure le point de départ
+     */
+    public Stop getDeparture() {
+        return departure;
     }
 
-    public void setDepart(Stop depart) {
-        this.depart = depart;
+    /**
+     * Modifie le point de départ de la réservation
+     * @param departure le nouveau point de départ
+     */
+    public void setDeparture(Stop departure) {
+        this.departure = departure;
     }
 
-    public Stop getArrivee() {
-        return arrivee;
+    /**
+     * Récupère le point d'arrivée de la réservation
+     * @return arrival le point d'arrivée
+     */
+    public Stop getArrival() {
+        return arrival;
     }
 
-    public void setArrivee(Stop arrivee) {
-        this.arrivee = arrivee;
+    /**
+     * Modifie le point d'arrivée de la réservation
+     * @param arrival le nouveau point d'arrivée
+     */
+    public void setArrival(Stop arrival) {
+        this.arrival = arrival;
     }
 
-    public Date getDateHeureDepart() {
-        return dateHeureDepart;
+    /**
+     * Récupère la date et l'heure de départ de la réservation
+     * @return departureDateTime la date et l'heure de départ
+     */
+    public Date getDepartureDateTime() {
+        return departureDateTime;
     }
 
-    public void setDateHeureDepart(Date dateHeureDepart) {
-        this.dateHeureDepart = dateHeureDepart;
+    /**
+     * Modifie la date et l'heure de départ de la réservation
+     * @param departureDateTime la nouvelle date et l'heure de départ
+     */
+    public void setDepartureDateTime(Date departureDateTime) {
+        this.departureDateTime = departureDateTime;
     }
 
-    public Date getDateHeureArrivee() {
-        return dateHeureArrivee;
+    /**
+     * Récupère la date et l'heure d'arrivée de la réservation
+     * @return arrivalDateTime la date et l'heure d'arrivée
+     */
+    public Date getArrivalDateTime() {
+        return arrivalDateTime;
     }
 
-    public void setDateHeureArrivee(Date dateHeureArrivee) {
-        this.dateHeureArrivee = dateHeureArrivee;
+    /**
+     * Modifie la date et l'heure d'arrivée de la réservation
+     * @param arrivalDateTime la nouvelle date et l'heure d'arrivée
+     */
+    public void setArrivalDateTime(Date arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
     }
 
-    public Integer getNbPassager() {
-        return nbPassager;
+    /**
+     * Récupère le nombre de passagers de la réservation
+     * @return numberOfPassengers le nombre de passagers
+     */
+    public Integer getNumberOfPassengers() {
+        return numberOfPassengers;
     }
 
-    public void setNbPassager(Integer nbPassager) {
-        this.nbPassager = nbPassager;
+    /**
+     * Modifie le nombre de passagers de la réservation
+     * @param numberOfPassengers le nouveau nombre de passagers
+     */
+    public void setNumberOfPassengers(Integer numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
     }
 
-    public Integer getTarifUnitaire() {
-        return tarifUnitaire;
+    /**
+     * Récupère le tarif unitaire par passager de la réservation
+     * @return unitFare le tarif unitaire
+     */
+    public Integer getUnitFare() {
+        return unitFare;
     }
 
-    public void setTarifUnitaire(Integer tarifUnitaire) {
-        this.tarifUnitaire = tarifUnitaire;
+    /**
+     * Modifie le tarif unitaire par passager de la réservation
+     * @param unitFare le nouveau tarif unitaire
+     */
+    public void setUnitFare(Integer unitFare) {
+        this.unitFare = unitFare;
     }
 
+    /**
+     * Récupère les spécifications additionnelles de la réservation
+     * @return specifications les spécifications
+     */
     public String getSpecifications() {
         return specifications;
     }
 
+    /**
+     * Modifie les spécifications additionnelles de la réservation
+     * @param specifications les nouvelles spécifications
+     */
     public void setSpecifications(String specifications) {
         this.specifications = specifications;
     }
 
-    public ArrayList<User> getListePassagers() {
-        return listePassagers;
+    /**
+     * Récupère la liste des passagers de la réservation
+     * @return passengerList la liste des passagers
+     */
+    public ArrayList<User> getPassengerList() {
+        return passengerList;
     }
 
-    public void setListePassagers(ArrayList<User> listePassagers) {
-        this.listePassagers = listePassagers;
+    /**
+     * Modifie la liste des passagers de la réservation
+     * @param passengerList la nouvelle liste des passagers
+     */
+    public void setPassengerList(ArrayList<User> passengerList) {
+        this.passengerList = passengerList;
     }
 
-    public User getConducteur() {
-        return conducteur;
+    /**
+     * Vérifie si l'utilisateur est conducteur pour cette réservation
+     * @return isDriver si l'utilisateur est conducteur
+     */
+    public User getIsDriver() {
+        return isDriver;
     }
 
-    public void setConducteur(User conducteur) {
-        this.conducteur = conducteur;
+    /**
+     * Modifie l'indication si l'utilisateur est conducteur pour cette réservation
+     * @param isDriver le nouveau statut de conducteur
+     */
+    public void setIsDriver(User isDriver) {
+        this.isDriver = isDriver;
     }
 }

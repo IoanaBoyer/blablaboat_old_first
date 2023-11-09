@@ -29,7 +29,7 @@ public interface ReservationDAOInterface {
     /**
      * Récupérer une réservation dans la table reservation via son id
      * @param id l'identifiant de la réservation à récupérer
-     * @return l'arrêt souhaité
+     * @return la réservation souhaitée
      */
     Reservation getById(String id);
 
@@ -40,7 +40,7 @@ public interface ReservationDAOInterface {
     ArrayList<Reservation> getAll();
 
     /**
-     * Récupérer une liste d'arrêts correspondant à une recherche
+     * Récupérer une liste d'arrêts correspondant à une recherche sur l'arrêt d'arrivée)
      * @param searchTerm le(s) mot(s) clé(s) de la recherche
      * @return la liste des arrêts correspondant à la recherche
      */

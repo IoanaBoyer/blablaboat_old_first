@@ -32,6 +32,8 @@ public class UserService {
         return userDAO;
     }
 
+    // TODO gestion des comptes (recup mdp etc)
+
     /**
      * TODO Se connecter à l'application (pseudo et mdp correct) -> à mettre dans la classe Application non ?
      */
@@ -43,7 +45,7 @@ public class UserService {
      */
     public ArrayList<Reservation> consultReservations() {
         // TODO ajouter un filtre pour voir les réservation dont la date de départ est supérieure à la date actuelle
-        return reservationService.getAll();
+        return reservationService.getReservationDAO().getAll();
     }
 
     /**
@@ -71,4 +73,8 @@ public class UserService {
     public ArrayList<User> consultUsers() {
         return userDAO.getAll();
     }
+
+    // TODO Conducteur qui propose une réservation
+
+    // TODO Passager qui réserve une réservation
 }
