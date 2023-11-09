@@ -41,7 +41,7 @@ public class SchemaInitializer {
                     + "firstname TEXT NOT NULL,"
                     + "age INTEGER NOT NULL,"
                     + "password TEXT NOT NULL,"
-                    + "isdriver BOOLEAN NOT NULL"
+                    + "driver BOOLEAN NOT NULL"
                     + ")");
         }
     }
@@ -52,10 +52,10 @@ public class SchemaInitializer {
                     + "id VARCHAR(36) PRIMARY KEY,"
                     + "depart_id VARCHAR(36),"
                     + "arrivee_id VARCHAR(36),"
-                    + "dateHeureDepart DATETIME,"
-                    + "dateHeureArrivee DATETIME,"
-                    + "nbPassager INTEGER,"
-                    + "tarifUnitaire INTEGER,"
+                    + "date_heure_depart DATETIME,"
+                    + "date_heure_arrivee DATETIME,"
+                    + "nb_passager INTEGER,"
+                    + "tarif_unitaire INTEGER,"
                     + "specifications TEXT,"
                     + "passagers_id VARCHAR(36),"
                     + "conducteur_id VARCHAR(36),"

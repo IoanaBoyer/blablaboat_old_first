@@ -9,24 +9,24 @@ public class Reservation {
     private UUID id;
     private Stop depart;
     private Stop arrivee;
-    private Date dateHeureDepart;
-    private Date dateHeureArrivee;
-    private Integer nbPassager; //TODO: deplacer en tant que méthode
-    private Integer tarifUnitaire;
+    private Date date_heure_depart;
+    private Date date_heure_arrivee;
+    private Integer nb_passager; //TODO: deplacer en tant que méthode
+    private Integer tarif_unitaire;
     private String specifications;
     private ArrayList<User> listePassagers;
     private User conducteur;
 
-    public Reservation(UUID id, Stop depart, Stop arrivee, Date dateHeureDepart, Date dateHeureArrivee,
-                       Integer nbPassager, Integer tarifUnitaire, String specifications, ArrayList<User> listePassagers,
+    public Reservation(UUID id, Stop depart, Stop arrivee, Date date_heure_depart, Date date_heure_arrivee,
+                       Integer nb_passager, Integer tarif_unitaire, String specifications, ArrayList<User> listePassagers,
                        User conducteur) {
         setId(id);
         this.depart = depart;
         this.arrivee = arrivee;
-        this.dateHeureDepart = dateHeureDepart;
-        this.dateHeureArrivee = dateHeureArrivee;
-        this.nbPassager = nbPassager;
-        this.tarifUnitaire = tarifUnitaire;
+        this.date_heure_depart = date_heure_depart;
+        this.date_heure_arrivee = date_heure_arrivee;
+        this.nb_passager = nb_passager;
+        this.tarif_unitaire = tarif_unitaire;
         this.specifications = specifications;
         this.listePassagers = listePassagers;
         this.conducteur = conducteur;
@@ -57,35 +57,35 @@ public class Reservation {
     }
 
     public Date getDateHeureDepart() {
-        return dateHeureDepart;
+        return date_heure_depart;
     }
 
-    public void setDateHeureDepart(Date dateHeureDepart) {
-        this.dateHeureDepart = dateHeureDepart;
+    public void setDateHeureDepart(Date date_heure_depart) {
+        this.date_heure_depart = date_heure_depart;
     }
 
     public Date getDateHeureArrivee() {
-        return dateHeureArrivee;
+        return date_heure_arrivee;
     }
 
-    public void setDateHeureArrivee(Date dateHeureArrivee) {
-        this.dateHeureArrivee = dateHeureArrivee;
+    public void setDateHeureArrivee(Date date_heure_arrivee) {
+        this.date_heure_arrivee = date_heure_arrivee;
     }
 
     public Integer getNbPassager() {
-        return nbPassager;
+        return nb_passager;
     }
 
-    public void setNbPassager(Integer nbPassager) {
-        this.nbPassager = nbPassager;
+    public void setNbPassager(Integer nb_passager) {
+        this.nb_passager = nb_passager;
     }
 
     public Integer getTarifUnitaire() {
-        return tarifUnitaire;
+        return tarif_unitaire;
     }
 
-    public void setTarifUnitaire(Integer tarifUnitaire) {
-        this.tarifUnitaire = tarifUnitaire;
+    public void setTarifUnitaire(Integer tarif_unitaire) {
+        this.tarif_unitaire = tarif_unitaire;
     }
 
     public String getSpecifications() {

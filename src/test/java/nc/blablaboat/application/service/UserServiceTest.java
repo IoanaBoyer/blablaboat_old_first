@@ -134,10 +134,10 @@ public class UserServiceTest {
         String firstname = "User";
         int age = 30;
         String password = "test123";
-        boolean isDriver = true;
+        boolean driver = true;
 
         // When
-        User userOriginal = new User(id, nickname, lastname, firstname, age, password, isDriver);
+        User userOriginal = new User(id, nickname, lastname, firstname, age, password, driver);
         userDAO.insert(userOriginal);
         User user = userDAO.getById(userOriginal.getId());
 
@@ -149,7 +149,7 @@ public class UserServiceTest {
         assertEquals(firstname, user.getFirstname());
         assertEquals(age, user.getAge());
         assertEquals(password, user.getPassword());
-        assertEquals(isDriver, user.getDriver());
+        assertEquals(driver, user.getDriver());
     }
 
     @Test
@@ -161,12 +161,12 @@ public class UserServiceTest {
         String firstname = "User";
         int age = 30;
         String password = "test123";
-        boolean isDriver = true;
+        boolean driver = true;
 
         // When
-        User user1 = new User(UUID.fromString(id), nickname, lastname, firstname, age, password, isDriver);
-        User user2 = new User(id, nickname, lastname, firstname, age, password, isDriver);
-        User user3 = new User(nickname, lastname, firstname, age, password, isDriver);
+        User user1 = new User(UUID.fromString(id), nickname, lastname, firstname, age, password, driver);
+        User user2 = new User(id, nickname, lastname, firstname, age, password, driver);
+        User user3 = new User(nickname, lastname, firstname, age, password, driver);
 
         // Then
         assertNotNull(user1.getId());

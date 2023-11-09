@@ -26,10 +26,10 @@ public class UserDAO implements UserDAOInterface {
         this.CONNECTION = ConnectionHolder.INSTANCE.getConnection();
     }
 
-
     public Connection getCONNECTION() {
         return CONNECTION;
     }
+
 
     /**
      * Insérer un utilisateur dans la table user
@@ -37,7 +37,7 @@ public class UserDAO implements UserDAOInterface {
      */
     @Override
     public void insert(User user) {
-        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, isdriver) " +
+        String query = "INSERT INTO user (id, nickname, lastname, firstname, age, password, driver) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
@@ -112,9 +112,9 @@ public class UserDAO implements UserDAOInterface {
                     String firstname = resultSet.getString("firstname");
                     int age = resultSet.getInt("age");
                     String password = resultSet.getString("password");
-                    Boolean isDriver = resultSet.getBoolean("isdriver");
+                    Boolean driver = resultSet.getBoolean("driver");
 
-                    return new User(UUID.fromString(id), nickname, lastname, firstname, age, password, isDriver);
+                    return new User(UUID.fromString(id), nickname, lastname, firstname, age, password, driver);
                 } else {
                     // Aucun utilisateur trouvé avec cet id
                     return null;
@@ -151,9 +151,9 @@ public class UserDAO implements UserDAOInterface {
                     String firstname = resultSet.getString("firstname");
                     int age = resultSet.getInt("age");
                     String password = resultSet.getString("password");
-                    Boolean isDriver = resultSet.getBoolean("isdriver");
+                    Boolean driver = resultSet.getBoolean("driver");
 
-                    User user = new User(id, nickname, lastname, firstname, age, password, isDriver);
+                    User user = new User(id, nickname, lastname, firstname, age, password, driver);
                     matchingUsers.add(user);
                 }
             } catch (SQLException e) {
@@ -197,8 +197,8 @@ public class UserDAO implements UserDAOInterface {
             String firstname = resultSet.getString("firstname");
             int age = resultSet.getInt("age");
             String password = resultSet.getString("password");
-            Boolean isDriver = resultSet.getBoolean("isdriver");
-            return new User(id, nickname, lastname, firstname, age, password, isDriver);
+            Boolean driver = resultSet.getBoolean("driver");
+            return new User(id, nickname, lastname, firstname, age, password, driver);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -41,7 +41,7 @@ public class User {
     /**
      * Type de l'utilisateur (pas héritage car un utilisateur peut être les 2 en mêmes temps)
      */
-    private Boolean isDriver;
+    private Boolean driver;
 
     /**
      * Constructeur vide
@@ -57,16 +57,16 @@ public class User {
      * @param firstname le prénom de l'utilisateur
      * @param age l'âge de l'utilisateur
      * @param password le mot de passe de l'utilisateur
-     * @param isDriver type de l'utilisateur
+     * @param driver type de l'utilisateur
      */
-    public User(UUID id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
+    public User(UUID id, String nickname, String lastname, String firstname, int age, String password, Boolean driver) {
         setId(id);
         this.nickname = nickname;
         this.lastname = lastname;
         this.firstname = firstname;
         this.age = age;
         this.password = password;
-        this.isDriver = isDriver;
+        this.driver = driver;
     }
 
     /**
@@ -77,10 +77,10 @@ public class User {
      * @param firstname le prénom de l'utilisateur
      * @param age l'âge de l'utilisateur
      * @param password le mot de passe de l'utilisateur
-     * @param isDriver type de l'utilisateur
+     * @param driver type de l'utilisateur
      */
-    public User(String id, String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
-        this(UUID.fromString(id), nickname, lastname, firstname, age, password, isDriver);
+    public User(String id, String nickname, String lastname, String firstname, int age, String password, Boolean driver) {
+        this(UUID.fromString(id), nickname, lastname, firstname, age, password, driver);
     }
 
     /**
@@ -90,10 +90,10 @@ public class User {
      * @param firstname le prénom de l'utilisateur
      * @param age l'âge de l'utilisateur
      * @param password le mot de passe de l'utilisateur
-     * @param isDriver type de l'utilisateur
+     * @param driver type de l'utilisateur
      */
-    public User(String nickname, String lastname, String firstname, int age, String password, Boolean isDriver) {
-        this(UUID.randomUUID(), nickname, lastname, firstname, age, password, isDriver);
+    public User(String nickname, String lastname, String firstname, int age, String password, Boolean driver) {
+        this(UUID.randomUUID(), nickname, lastname, firstname, age, password, driver);
     }
 
     public User(UUID conducteurId, String testConducteur, String driver, String mail, String password) {
@@ -197,10 +197,10 @@ public class User {
 
     /**
      * Récupère le type de l'utilisateur
-     * @return isDriver
+     * @return driver
      */
     public Boolean getDriver() {
-        return isDriver;
+        return this.driver;
     }
 
     /**
@@ -208,7 +208,7 @@ public class User {
      * @param driver le nouveau type d'utilisateur
      */
     public void setDriver(Boolean driver) {
-        isDriver = driver;
+        this.driver = driver;
     }
 
     /**
@@ -223,7 +223,7 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", age=" + age + '\'' +
-                ", isDriver=" + isDriver +
+                ", driver=" + driver +
                 '}';
     }
 }

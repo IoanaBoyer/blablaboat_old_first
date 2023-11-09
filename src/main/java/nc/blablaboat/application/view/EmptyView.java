@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 
 @PageTitle("Empty")
-@Route(value = "")
+@Route(value = "/empty")
 public class EmptyView extends VerticalLayout {
 
     public EmptyView() {

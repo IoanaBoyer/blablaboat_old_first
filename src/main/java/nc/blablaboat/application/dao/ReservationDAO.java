@@ -204,15 +204,15 @@ public class ReservationDAO implements ReservationDAOInterface {
             UUID id = UUID.fromString(resultSet.getString("id"));
             Stop depart = stopDAO.getById(resultSet.getString("depart_id"));
             Stop arrivee = stopDAO.getById(resultSet.getString("arrivee_id"));
-            Date dateHeureDepart = resultSet.getTimestamp("dateHeureDepart");
-            Date dateHeureArrivee = resultSet.getTimestamp("dateHeureArrivee");
-            int nbPassager = resultSet.getInt("nbPassager");
-            int tarifUnitaire = resultSet.getInt("tarifUnitaire");
+            Date date_heure_depart = resultSet.getTimestamp("date_heure_depart");
+            Date date_heure_arrivee = resultSet.getTimestamp("date_heure_arrivee");
+            int nb_passager = resultSet.getInt("nb_passager");
+            int tarif_unitaire = resultSet.getInt("tarif_unitaire");
             String specifications = resultSet.getString("specifications");
             User conducteur = userDAO.getById(resultSet.getString("conducteur_id"));
             ArrayList<User> passagers = passagersDAO.getByIdReservation(resultSet.getString("id"));
 
-            return new Reservation(id, depart, arrivee, dateHeureDepart, dateHeureArrivee, nbPassager, tarifUnitaire, specifications, passagers, conducteur);
+            return new Reservation(id, depart, arrivee, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, passagers, conducteur);
         } catch (SQLException e) {
             // Gérer l'exception ou la propager
             throw new RuntimeException(e);

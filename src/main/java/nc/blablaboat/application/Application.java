@@ -4,10 +4,15 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
 import nc.blablaboat.application.dao.UserDAO;
+import nc.blablaboat.application.model.Reservation;
+import nc.blablaboat.application.model.Stop;
 import nc.blablaboat.application.model.User;
+import nc.blablaboat.application.service.ReservationService;
 import nc.blablaboat.application.service.UserService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.boot.SpringApplication;
@@ -27,41 +32,30 @@ public class Application implements AppShellConfigurator {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
+        // USER - test
         UserService userService = new UserService();
         UserDAO userDAO = new UserDAO();
 
-        // Exemple d'utilisation du service
-        User user1 = new User("AliceM","Alice", "MERVEILLE", 50, "zebi", false);
-        user1.setLastname("Alice");
-        user1.setAge(30);
+        User user = new User( "AliceM","Alice", "MERVEILLE", 30, "zebi", false);
+        userDAO.insert(user);
 
-        userDAO.insert(user1);
-
-        User user1dao = userDAO.getById(user1.getId());
+        User user1dao = userDAO.getById(user.getId());
         System.out.println(user1dao);
 
+        // RESERVATION  - test
+        Stop depart = new Stop("depart", 0.0,0.0);
+        Stop arret = new Stop("arret", 0.0,0.0);
+        Date ddep = new Date();
+        Date darr = new Date();
+        ArrayList<User> passagers = new ArrayList<>();
+        passagers.add(user);
 
-        // Trajet TableTrajet = new TrajetService()
-        // personService.consulterTrajet(TableTrajet())
- 
-        // UserService.insert(User2);
+        Reservation reservation = new Reservation(null, depart, arret, ddep, darr, 0, 1000,
+                "", passagers,user);
 
-        // // Récupérer une Userne par son ID
-        // User retrievedUser = UserService.findUserById(1);
-        // System.out.println("Retrieved User: " + retrievedUser.getName());
+        ReservationService reservationService = new ReservationService();
+        reservationService.insert(reservation);
 
-        // // Mettre à jour une Userne
-        // retrievedUser.setAge(31);
-        // UserService.update(retrievedUser);
-
-        // // Récupérer toutes les Usernes
-        // List<User> people = UserService.getAllPeople();
-        // for (User User : people) {
-        //     System.out.println("User: " + User.getName() + ", Age: " + User.getAge());
-        // }
-
-        // // Supprimer une Userne
-        // UserService.delete(2);
     }
 
 }
