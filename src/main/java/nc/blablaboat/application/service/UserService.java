@@ -59,6 +59,10 @@ public class UserService {
         return userDAO.getById(id);
     }
 
+    public void insert(User user) {
+        userDAO.insert(user);
+    }
+
     /**
      * Rechercher un utilisateur avec un(des) mot(s) clé(s)
      * @param searchTerm la recherche

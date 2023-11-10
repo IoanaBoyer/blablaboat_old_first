@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -125,6 +126,19 @@ public class UserDAO implements UserDAOInterface {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public User getUserByUsernameAndPassword(String username, String password) {
+        User user = getById(username);
+        if (user == null) {
+            System.out.println("Auth: utilisateur inconnu");
+            return null;
+        }
+        if (!Objects.equals(user.getPassword(), password)) {
+            System.out.println("Auth: password incorrect");
+            return null;
+        }
+        return user;
     }
 
     /**

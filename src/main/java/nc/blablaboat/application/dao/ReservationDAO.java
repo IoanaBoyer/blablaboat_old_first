@@ -39,8 +39,8 @@ public class ReservationDAO implements ReservationDAOInterface {
      */
     @Override
     public void insert(Reservation reservation) {
-        String query = "INSERT INTO reservation (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, conducteur_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO reservation (id, depart_id, arrivee_id, date_heure_depart, date_heure_arrivee, nb_passager, tarif_unitaire, specifications, passagers_id, conducteur_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, reservation.getId());
             preparedStatement.setString(2, reservation.getDeparture().getId());
@@ -50,7 +50,8 @@ public class ReservationDAO implements ReservationDAOInterface {
             preparedStatement.setInt(6, reservation.getNbPassager());
             preparedStatement.setInt(7, reservation.getTarifUnitaire());
             preparedStatement.setString(8, reservation.getSpecifications());
-            preparedStatement.setString(9, reservation.getConducteur().getId());
+            preparedStatement.setString(9, reservation.getId());
+            preparedStatement.setString(10, reservation.getConducteur().getId());
             preparedStatement.executeUpdate();
 
             stopDAO.insert(reservation.getDeparture());

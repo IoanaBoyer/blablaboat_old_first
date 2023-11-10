@@ -47,7 +47,7 @@ public class Home extends BaseLayout {
 
     private void showFilteredReservations(List<Reservation> reservations) {
         reservationLayout.removeAll(); // Clear the previous content
-        // TODO: enlever 3 lignes
+
         UserService userService = new UserService();
         String userId = "00000000-0000-0000-0000-000000000000";
         User user = userService.getById(userId);
@@ -67,6 +67,16 @@ public class Home extends BaseLayout {
             reservationDiv.add(new Paragraph("Unit Price: " + reservation.getTarifUnitaire()));
             reservationDiv.add(new Paragraph("Specifications: " + reservation.getSpecifications()));
 
+            // Afficher la liste des passagers
+            List<User> passagers = reservation.getListePassagers();
+            Paragraph passagersInfo = new Paragraph("Passagers: ");
+            if (!passagers.isEmpty() && passagers.get(0) != null) {
+                for (User passager : passagers) {
+                    passagersInfo.add(passager.getLastname() + " " + passager.getFirstname() + " (" + passager.getAge() + " ans), ");
+                }
+            }
+            reservationDiv.add(passagersInfo);
+
             Button joinButton = new Button("Join");
             joinButton.addClickListener(event -> joinReservation(reservation, user)); // Define the joinReservation method
             reservationDiv.add(joinButton);
@@ -74,6 +84,7 @@ public class Home extends BaseLayout {
             reservationLayout.add(reservationDiv);
         }
     }
+
 
 
     private void joinReservation(Reservation reservation, User user) {

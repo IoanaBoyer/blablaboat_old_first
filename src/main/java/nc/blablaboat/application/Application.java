@@ -32,9 +32,9 @@ public class Application implements AppShellConfigurator {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
+        UserService userService = new UserService();
         // USER - test
         if (false) {
-            UserService userService = new UserService();
             UserDAO userDAO = new UserDAO();
 
             User user = new User("AliceM", "Alice", "MERVEILLE", 30, "zebi", false);
@@ -46,6 +46,8 @@ public class Application implements AppShellConfigurator {
         }
         // RESERVATION  - test
         User user = new User("AliceM", "Alice", "MERVEILLE", 30, "zebi", false);
+        userService.insert(user);
+
         Stop depart = new Stop("depart", 0.0,0.0);
         Stop arret = new Stop("arret", 0.0,0.0);
         Date ddep = new Date();
