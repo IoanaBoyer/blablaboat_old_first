@@ -1,11 +1,17 @@
 package nc.blablaboat.application.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     private Stop depart;
     private Stop arrivee;

@@ -1,5 +1,9 @@
 package nc.blablaboat.application.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,6 +14,8 @@ public class Stop {
     /**
      * L'identifiant de l'arrêt
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id ;
 
     /**

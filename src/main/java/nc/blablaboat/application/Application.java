@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * The entry point of the Spring Boot application.
@@ -26,6 +27,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@EnableJpaRepositories(basePackages = "nc.blablaboat.application.model")
 @Theme(value = "todo")
 public class Application implements AppShellConfigurator {
 
