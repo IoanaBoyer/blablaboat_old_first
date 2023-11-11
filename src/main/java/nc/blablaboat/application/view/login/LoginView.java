@@ -1,6 +1,8 @@
 package nc.blablaboat.application.view.login;
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -27,12 +29,14 @@ public class LoginView extends BaseLayout {
             if (user != null) {
                 // Authentification réussie
                 storeUserIdInCookie(user.getId());
-                getUI().ifPresent(ui -> ui.navigate("account"));
+                UI.getCurrent().navigate("account");
             } else {
                 // Authentification échouée, afficher un message d'erreur
                 Notification.show("Authentification échouée", 3000, Notification.Position.TOP_CENTER);
             }
         });
+
+        loginButton.addClickShortcut(Key.ENTER);
 
         // Utilisez la méthode setContent de votre BaseLayout pour définir le contenu
         setContent(new Text("Bienvenue, veuillez vous connecter."), usernameField, passwordField, loginButton);

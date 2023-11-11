@@ -1,5 +1,6 @@
 package nc.blablaboat.application.view;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -13,6 +14,9 @@ import nc.blablaboat.application.model.User;
 import nc.blablaboat.application.service.UserService;
 import nc.blablaboat.application.view.BaseLayout;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 @Route("/account")
 public class UserAccountView extends BaseLayout implements BeforeEnterObserver {
 
@@ -24,7 +28,7 @@ public class UserAccountView extends BaseLayout implements BeforeEnterObserver {
 
     private void showProfile() {
 //        String userId = "00000000-0000-0000-0000-000000000000";
-        String userId = getCookieValue();
+        String userId = getCookieValueSynchronously();   //TODO: rendre synchrone car sinon retourne null
         System.out.println(userId);
         User u = userService.consultUserProfil(userId); // Replace "user_id" with the actual u's ID
         VerticalLayout profileLayout = new VerticalLayout(
@@ -72,5 +76,25 @@ public class UserAccountView extends BaseLayout implements BeforeEnterObserver {
             }
         }
         return null;
+    }
+
+    private String getCookieValueSynchronously() {
+        try {
+            CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+                Cookie[] cookies = VaadinService.getCurrentRequest().getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("userId".equals(cookie.getName())) {
+                        return cookie.getValue();
+                    }
+                }
+            }
+                return null;
+        });
+            return future.get(); // Ceci bloque jusqu'à ce que la future soit complète
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }
