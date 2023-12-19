@@ -176,7 +176,7 @@ public class ReservationDAO implements ReservationDAOInterface {
         ArrayList<Reservation> matchingReservations = new ArrayList<>();
 
         // La requête ne vérifie que les arrêts d'arrivée
-        String reservationQuery = "SELECT r.* FROM reservation r " +
+        String reservationQuery = "SELECT distinct * FROM reservation " +
                 "JOIN stop s ON r.arrivee_id = s.id " +
                 "WHERE s.name LIKE ?";
 

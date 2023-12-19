@@ -49,6 +49,9 @@ public class PassengerDAO {
      * @param newPassengerId L'identifiant du nouveau passager à ajouter à la réservation.
      */
     public void update(String reservationId, String oldPassengerId, String newPassengerId) {
+        // TODO liste de users en param : on insert les nouveau et on supp ce qui ne sont pas dans la liste et qui sont dans la bdd
+        // TODO Leve une exception si la liste vide
+
         String query = "UPDATE passenger SET passenger_id = ? WHERE reservation_id = ? AND passenger_id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, newPassengerId);
@@ -65,6 +68,7 @@ public class PassengerDAO {
      * @param id L'identifiant de la réservation concernée
      */
     public void delete(UUID id) {
+        // Avec une liste d'utilisateurs
         String query = "DELETE FROM reservation WHERE id = ?";
         try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(query)) {
             preparedStatement.setString(1, id.toString());
